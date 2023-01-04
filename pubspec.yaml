@@ -1,0 +1,40 @@
+name: fuzzy_music
+description: A Flutter Music Player!
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2         # ios图标
+  quiver: ^3.2.1                  # dart工具库
+  dio: ^4.0.6                     # http工具
+  get: ^4.6.5                     # 路由、状态、依赖管理工具
+  system_theme: ^2.0.0            # 获取系统主题状态
+  window_manager: ^0.2.9          # 系统窗口管理
+  flutter_acrylic: ^1.1.0+1       # 亚克力效果
+  system_tray: ^2.0.2             # 系统托盘
+  fluent_ui: ^4.1.3               # fluentUI
+  netease_music_api:              # 网易云音乐api
+    path: NeteaseCloudMusicApi/
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  json_to_model: ^3.2.4           # json与model的转换工具
+  
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/
+
+  fonts:
+    - family: msyh
+      fonts:
+        - asset: fonts/msyh.ttc
