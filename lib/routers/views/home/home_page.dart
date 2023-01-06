@@ -1,13 +1,14 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:01:32
- * @LastEditTime: 2023-01-05 16:57:37
+ * @LastEditTime: 2023-01-07 00:16:57
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_page.dart
  * @Description: 
  */
 import 'package:flutter/cupertino.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
 import 'package:flutter/material.dart';
+import 'package:fuzzy_music/routers/views/bottom_player_bar.dart';
 import 'package:fuzzy_music/routers/views/recommendation/recommendation_page.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -20,6 +21,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomPlayerBar(),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(76),
           child: Column(
