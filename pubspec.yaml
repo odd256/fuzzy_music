@@ -19,7 +19,7 @@ dependencies:
   system_tray: ^2.0.2             # 系统托盘
   fluent_ui: ^4.1.3               # fluentUI
   netease_music_api:              # 网易云音乐api
-    path: NeteaseCloudMusicApi/
+    path: NeteaseCloudMusicApi-dart/
 dev_dependencies:
   flutter_test:
     sdk: flutter

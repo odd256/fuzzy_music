@@ -213,7 +213,7 @@ packages:
   netease_music_api:
     dependency: "direct main"
     description:
-      path: NeteaseCloudMusicApi
+      path: NeteaseCloudMusicApi-dart
       relative: true
     source: path
     version: "1.0.0"

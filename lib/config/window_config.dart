@@ -1,3 +1,10 @@
+/*
+ * @Creator: Odd
+ * @Date: 2023-01-04 22:52:01
+ * @LastEditTime: 2023-01-05 16:12:13
+ * @FilePath: \fuzzy_music\lib\config\window_config.dart
+ * @Description: 
+ */
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:system_theme/system_theme.dart';
@@ -26,7 +33,8 @@ configWindow() async {
     await flutter_acrylic.Window.initialize();
     await WindowManager.instance.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
-      size: Size(1400, 800),
+      size: Size(1400, 700),
+      minimumSize: Size(1400, 700),
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
