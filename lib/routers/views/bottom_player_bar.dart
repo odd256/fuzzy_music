@@ -64,12 +64,13 @@ class AlbumStateWidget extends StatelessWidget {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('歌名'),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('歌名', style: Theme.of(context).textTheme.subtitle1),
               SizedBox(
                 height: 8,
               ),
-              Text('歌手名'),
+              Text('歌手名', style: Theme.of(context).textTheme.subtitle2),
             ],
           )
         ],

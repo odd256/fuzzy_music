@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-05 02:28:52
+ * @LastEditTime: 2023-01-12 05:41:31
  * @FilePath: \fuzzy_music\lib\main.dart
  * @Description: 
  */
@@ -15,6 +15,7 @@ import 'package:fuzzy_music/services/http_service.dart';
 import 'package:fuzzy_music/services/netease_service.dart';
 import 'package:fuzzy_music/services/tray_service.dart';
 import 'package:get/get.dart';
+import 'package:system_theme/system_theme.dart';
 
 import 'config/theme_config.dart';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return fui.AnimatedFluentTheme(
-      data: fui.ThemeData(),
+      data: SystemTheme.isDarkMode ? fuiDarkThemeData : fuiLightThemeData,
       child: GetMaterialApp(
         localizationsDelegates: const [fui.FluentLocalizations.delegate],
         theme: lightThemeData,

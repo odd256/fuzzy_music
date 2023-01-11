@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:01:32
- * @LastEditTime: 2023-01-07 00:16:57
+ * @LastEditTime: 2023-01-12 05:29:30
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_page.dart
  * @Description: 
  */
@@ -9,7 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
 import 'package:flutter/material.dart';
 import 'package:fuzzy_music/routers/views/bottom_player_bar.dart';
+import 'package:fuzzy_music/routers/views/home/home_controller.dart';
 import 'package:fuzzy_music/routers/views/recommendation/recommendation_page.dart';
+import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -88,30 +90,42 @@ class TabSwitcher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        TextButton(
-            onPressed: () => {},
-            child: Text(
-              '推荐',
-              style: Theme.of(context).textTheme.headline6,
-            )),
+        Obx(
+          () => fui.ToggleButton(
+              checked: HomeController.to.tabNames == TabNames.recommend,
+              onChanged: (v) =>
+                  {HomeController.to.tabNames = TabNames.recommend},
+              child: Text(
+                '推荐',
+                style: Theme.of(context).textTheme.headline6,
+              )),
+        ),
         const SizedBox(
           width: 25,
         ),
-        TextButton(
-            onPressed: () => {},
-            child: Text(
-              '发现',
-              style: Theme.of(context).textTheme.headline6,
-            )),
+        Obx(
+          () => fui.ToggleButton(
+              checked: HomeController.to.tabNames == TabNames.discovery,
+              onChanged: (v) =>
+                  {HomeController.to.tabNames = TabNames.discovery},
+              child: Text(
+                '发现',
+                style: Theme.of(context).textTheme.headline6,
+              )),
+        ),
         const SizedBox(
           width: 25,
         ),
-        TextButton(
-            onPressed: () => {},
-            child: Text(
-              '我的音乐',
-              style: Theme.of(context).textTheme.headline6,
-            )),
+        Obx(
+          () => fui.ToggleButton(
+              checked: HomeController.to.tabNames == TabNames.myMusic,
+              onChanged: (v) =>
+                  {HomeController.to.tabNames = TabNames.myMusic},
+              child: Text(
+                '我的乐库',
+                style: Theme.of(context).textTheme.headline6,
+              )),
+        ),
       ],
     );
   }

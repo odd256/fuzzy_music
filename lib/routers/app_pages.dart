@@ -1,10 +1,11 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 18:58:09
- * @LastEditTime: 2023-01-04 23:19:27
+ * @LastEditTime: 2023-01-12 05:07:49
  * @FilePath: \fuzzy_music\lib\routers\app_pages.dart
  * @Description: 
  */
+import 'package:fuzzy_music/routers/views/home/home_controller.dart';
 import 'package:get/get.dart';
 
 import 'views/home/home_page.dart';
@@ -30,5 +31,7 @@ class AppPages {
 
 class HomePageBinding implements Bindings {
   @override
-  void dependencies() {}
+  void dependencies() {
+    Get.lazyPut(() => HomeController());
+  }
 }
