@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:01:32
- * @LastEditTime: 2023-01-12 05:29:30
+ * @LastEditTime: 2023-01-12 06:43:31
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_page.dart
  * @Description: 
  */
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
               )
             ],
           )),
-      body: RecommendationPage(),
+      body: Obx(() => HomeController.to.currentPage),
     );
   }
 }
@@ -88,13 +88,16 @@ class TabSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.find<HomeController>();
     return Row(
       children: [
         Obx(
           () => fui.ToggleButton(
-              checked: HomeController.to.tabNames == TabNames.recommend,
-              onChanged: (v) =>
-                  {HomeController.to.tabNames = TabNames.recommend},
+              checked: homeController.tabNames == TabNames.recommend,
+              onChanged: (_) {
+                homeController.tabNames = TabNames.recommend;
+                homeController.currentPage = homeController.pages['recommend']!;
+              },
               child: Text(
                 '推荐',
                 style: Theme.of(context).textTheme.headline6,
@@ -105,9 +108,11 @@ class TabSwitcher extends StatelessWidget {
         ),
         Obx(
           () => fui.ToggleButton(
-              checked: HomeController.to.tabNames == TabNames.discovery,
-              onChanged: (v) =>
-                  {HomeController.to.tabNames = TabNames.discovery},
+              checked: homeController.tabNames == TabNames.discovery,
+              onChanged: (_) {
+                homeController.tabNames = TabNames.discovery;
+                homeController.currentPage = homeController.pages['discovery']!;
+              },
               child: Text(
                 '发现',
                 style: Theme.of(context).textTheme.headline6,
@@ -118,9 +123,11 @@ class TabSwitcher extends StatelessWidget {
         ),
         Obx(
           () => fui.ToggleButton(
-              checked: HomeController.to.tabNames == TabNames.myMusic,
-              onChanged: (v) =>
-                  {HomeController.to.tabNames = TabNames.myMusic},
+              checked: homeController.tabNames == TabNames.myMusic,
+              onChanged: (_) {
+                homeController.tabNames = TabNames.myMusic;
+                homeController.currentPage = homeController.pages['myMusic']!;
+              },
               child: Text(
                 '我的乐库',
                 style: Theme.of(context).textTheme.headline6,
