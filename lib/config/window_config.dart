@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 22:52:01
- * @LastEditTime: 2023-01-05 16:12:13
+ * @LastEditTime: 2023-01-12 07:53:39
  * @FilePath: \fuzzy_music\lib\config\window_config.dart
  * @Description: 
  */
@@ -21,15 +21,14 @@ bool get isDesktop {
 }
 
 configWindow() async {
-  if (!kIsWeb &&
-      [
-        TargetPlatform.windows,
-        TargetPlatform.android,
-      ].contains(defaultTargetPlatform)) {
-    SystemTheme.accentColor.load();
-  }
-
   if (isDesktop) {
+    if (!kIsWeb &&
+        [
+          TargetPlatform.windows,
+          TargetPlatform.android,
+        ].contains(defaultTargetPlatform)) {
+      SystemTheme.accentColor.load();
+    }
     await flutter_acrylic.Window.initialize();
     await WindowManager.instance.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
@@ -44,5 +43,6 @@ configWindow() async {
       await windowManager.show();
       await windowManager.focus();
     });
+    await windowManager.setPreventClose(true);
   }
 }

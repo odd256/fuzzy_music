@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-07 00:05:49
+ * @LastEditTime: 2023-01-12 17:51:06
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -28,7 +28,7 @@ class RecommendationPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(
             '推荐歌单',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         Padding(
@@ -105,7 +105,7 @@ class RecommendationPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(
             'For You',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         Padding(
@@ -122,7 +122,7 @@ class RecommendationPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(
             '推荐艺人',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         Padding(
@@ -143,7 +143,7 @@ class RecommendationPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(
             '新专速递',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         Padding(
@@ -220,7 +220,7 @@ class RecommendationPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(
             '排行榜',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         Padding(

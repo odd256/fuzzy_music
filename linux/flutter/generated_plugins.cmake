@@ -3,8 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audioplayers_linux
   flutter_acrylic
   screen_retriever
+  system_theme
   system_tray
   window_manager
 )

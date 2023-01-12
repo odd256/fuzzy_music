@@ -13,7 +13,8 @@ dependencies:
   quiver: ^3.2.1                  # dart工具库
   dio: ^4.0.6                     # http工具
   get: ^4.6.5                     # 路由、状态、依赖管理工具
-  system_theme: ^2.0.0            # 获取系统主题状态
+  system_theme: ^2.1.0            # 获取系统主题状态
+  audioplayers: ^2.0.0            # 音乐播放
   window_manager: ^0.2.9          # 系统窗口管理
   flutter_acrylic: ^1.1.0+1       # 亚克力效果
   system_tray: ^2.0.2             # 系统托盘
