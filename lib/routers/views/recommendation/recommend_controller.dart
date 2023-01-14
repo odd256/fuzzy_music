@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-13 01:25:07
- * @LastEditTime: 2023-01-15 05:02:07
+ * @LastEditTime: 2023-01-15 05:37:24
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommend_controller.dart
  * @Description: 
  */
@@ -9,10 +9,12 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fuzzy_music/api/top_album.dart';
 import 'package:fuzzy_music/api/toplist_artist.dart';
 import 'package:fuzzy_music/config/window_config.dart';
 import 'package:fuzzy_music/models/index.dart';
 import 'package:fuzzy_music/api/personalized.dart';
+import 'package:fuzzy_music/models/top_album.dart';
 import 'package:get/get.dart';
 
 class RecommendController extends GetxController {
@@ -31,10 +33,15 @@ class RecommendController extends GetxController {
   set toplistArtist(value) => _toplistArtist = value;
   ToplistArtist get toplistArtist => _toplistArtist;
 
+  TopAlbum _topAlbum = const TopAlbum(weekData: [], hasMore: false, monthData: [], code: 0);
+  set topAlbum(value) => _topAlbum = value;
+  TopAlbum get topAlbum => _topAlbum;
+
   @override
   Future<void> onInit() async {
     _initPersonalized();
     _initToplistArtist();
+    _initTopAlbum();
     scrollController.addListener(() {
       if (isDesktop) {
         const EXTRA_SCROLL_SPEED = 53;
@@ -70,6 +77,13 @@ class RecommendController extends GetxController {
   _initToplistArtist() async {
     final t = await ToplistArtistApi.topListArtist();
     toplistArtist = t;
+    update();
+  }
+
+  // 初始化新专速递
+  _initTopAlbum() async {
+    final t = await TopAlbumApi.topAlbum();
+    topAlbum = t;
     update();
   }
 }

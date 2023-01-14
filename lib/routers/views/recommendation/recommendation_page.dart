@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 05:03:51
+ * @LastEditTime: 2023-01-15 05:46:56
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -24,7 +24,7 @@ class RecommendationPage extends StatelessWidget {
   _buildPlaylists(playlists) {
     const size = Size(200, 200);
     List<Widget> pls = [];
-    for (Result p in playlists) {
+    for (var p in playlists) {
       pls.add(
         SongListCard(
           title: p.name,
@@ -62,7 +62,7 @@ class RecommendationPage extends StatelessWidget {
           return ListView(
             controller: _.scrollController,
             padding: EdgeInsets.symmetric(
-                horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
+                horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 30),
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -118,41 +118,12 @@ class RecommendationPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                  ],
-                ),
-              ),
+              _buildPlaylists(_.topAlbum.monthData.isNotEmpty
+                  ? _.topAlbum.monthData.sublist(0, 5)
+                  : _.topAlbum.monthData),
+              _buildPlaylists(_.topAlbum.monthData.isNotEmpty
+                  ? _.topAlbum.monthData.sublist(5, 10)
+                  : _.topAlbum.monthData),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 12,
