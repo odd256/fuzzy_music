@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-15 04:42:12
+ * @LastEditTime: 2023-01-15 06:49:23
  * @FilePath: \fuzzy_music\lib\main.dart
  * @Description: 
  */
@@ -39,20 +39,6 @@ initService() async {
   Get.put(TrayService().init());
   log('--------initService done---------');
 }
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         body: ListView.builder(
-//           physics: BouncingScrollPhysics(),
-//           itemCount: 100,
-//           itemBuilder: (context, index) => Text("$index"),
-//         ),
-//       ),
-//     );
-//   }
-// }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -64,7 +50,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: const [fui.FluentLocalizations.delegate],
         theme: lightThemeData,
         darkTheme: darkThemeData,
-        themeMode: fui.ThemeMode.system,
+        themeMode: fui.ThemeMode.dark,
         debugShowCheckedModeBanner: true,
         initialRoute: AppPages.initPage,
         getPages: AppPages.routes,

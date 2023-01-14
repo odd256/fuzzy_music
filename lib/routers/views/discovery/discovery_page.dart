@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:30:26
- * @LastEditTime: 2023-01-12 20:34:39
+ * @LastEditTime: 2023-01-15 06:45:58
  * @FilePath: \fuzzy_music\lib\routers\views\discovery\discovery_page.dart
  * @Description: 
  */
@@ -27,24 +27,24 @@ class DiscoveryPage extends StatelessWidget {
         ),
         Row(
           children: [
-            _buildLabelButton('全部', true, (v) => {}),
-            _buildLabelButton('推荐歌单', false, (v) => {}),
-            _buildLabelButton('精品歌单', false, (v) => {}),
-            _buildLabelButton('官方', false, (v) => {}),
-            _buildLabelButton('排行榜', false, (v) => {}),
-            _buildLabelButton('欧美', false, (v) => {}),
-            _buildLabelButton('流行', false, (v) => {}),
-            _buildLabelButton('摇滚', false, (v) => {}),
-            _buildLabelButton('电子', false, (v) => {}),
-            _buildLabelButton('说唱', false, (v) => {}),
-            _buildLabelButton('ACG', false, (v) => {}),
+            _buildLabelButton(context, '全部', true, (v) => {}),
+            _buildLabelButton(context, '推荐歌单', false, (v) => {}),
+            _buildLabelButton(context, '精品歌单', false, (v) => {}),
+            _buildLabelButton(context, '官方', false, (v) => {}),
+            _buildLabelButton(context, '排行榜', false, (v) => {}),
+            _buildLabelButton(context, '欧美', false, (v) => {}),
+            _buildLabelButton(context, '流行', false, (v) => {}),
+            _buildLabelButton(context, '摇滚', false, (v) => {}),
+            _buildLabelButton(context, '电子', false, (v) => {}),
+            _buildLabelButton(context, '说唱', false, (v) => {}),
+            _buildLabelButton(context, 'ACG', false, (v) => {}),
           ],
         )
       ],
     );
   }
 
-  Padding _buildLabelButton(
+  Padding _buildLabelButton(BuildContext context,
       String labelName, bool checked, Function(bool) onChange) {
     return Padding(
       padding: const EdgeInsets.only(right: 16),
@@ -53,7 +53,7 @@ class DiscoveryPage extends StatelessWidget {
         onChanged: onChange,
         child: Text(
           labelName,
-          style: TextStyle(fontSize: 20, fontFamily: 'msyh'),
+          style: Theme.of(context).textTheme.labelMedium,
         ),
       ),
     );

@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:01:32
- * @LastEditTime: 2023-01-12 07:51:48
+ * @LastEditTime: 2023-01-15 06:51:45
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_page.dart
  * @Description: 
  */
@@ -32,18 +32,17 @@ class _HomePageState extends State<HomePage> with WindowListener {
     return Scaffold(
       bottomNavigationBar: BottomPlayerBar(),
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(76),
+          preferredSize: const Size.fromHeight(88),
           child: Column(
             children: [
               SizedBox(
                 height: 28,
                 child: WindowCaption(
-                  brightness: Theme.of(context).brightness,
                   title: const Text('Fuzzy Music'),
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 100),
+                margin: const EdgeInsets.fromLTRB(100, 0, 100, 12),
                 height: 48,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +144,7 @@ class TabSwitcher extends StatelessWidget {
               },
               child: Text(
                 '推荐',
-                style: TextStyle(fontFamily: 'msyh', fontSize: 18),
+                style: Theme.of(context).textTheme.button,
               )),
         ),
         const SizedBox(
@@ -160,7 +159,7 @@ class TabSwitcher extends StatelessWidget {
               },
               child: Text(
                 '发现',
-                style: TextStyle(fontFamily: 'msyh', fontSize: 18),
+                style: Theme.of(context).textTheme.button,
               )),
         ),
         const SizedBox(
@@ -175,7 +174,7 @@ class TabSwitcher extends StatelessWidget {
               },
               child: Text(
                 '我的乐库',
-                style: TextStyle(fontFamily: 'msyh', fontSize: 18),
+                style: Theme.of(context).textTheme.button,
               )),
         ),
       ],

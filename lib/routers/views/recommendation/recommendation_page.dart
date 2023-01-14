@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 05:46:56
+ * @LastEditTime: 2023-01-15 06:44:29
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -22,7 +22,7 @@ class RecommendationPage extends StatelessWidget {
   const RecommendationPage({super.key});
 
   _buildPlaylists(playlists) {
-    const size = Size(200, 200);
+    const size = Size(205, 205);
     List<Widget> pls = [];
     for (var p in playlists) {
       pls.add(
@@ -39,6 +39,7 @@ class RecommendationPage extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: pls,
       ),
     );
@@ -226,8 +227,11 @@ class SongListCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: CachedNetworkImage(
+              width: size.width,
+              height: size.height,
+              fit: BoxFit.cover,
               imageUrl: imgUrl,
-              placeholder: (context, url) => CircularProgressIndicator(),
+              // placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
@@ -281,7 +285,7 @@ class RecommendOval extends StatelessWidget {
             height: size.height,
             width: size.width,
             imageUrl: imgUrl,
-            placeholder: (context, url) => CircularProgressIndicator(),
+            // placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),
