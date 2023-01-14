@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 22:52:01
- * @LastEditTime: 2023-01-12 07:53:39
+ * @LastEditTime: 2023-01-15 04:45:37
  * @FilePath: \fuzzy_music\lib\config\window_config.dart
  * @Description: 
  */
@@ -32,8 +32,8 @@ configWindow() async {
     await flutter_acrylic.Window.initialize();
     await WindowManager.instance.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
-      size: Size(1400, 700),
-      minimumSize: Size(1400, 700),
+      size: Size(1200, 800),
+      minimumSize: Size(1200, 700),
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,

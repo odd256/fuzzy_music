@@ -1,19 +1,26 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-13 01:25:07
- * @LastEditTime: 2023-01-15 02:31:43
+ * @LastEditTime: 2023-01-15 05:02:07
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommend_controller.dart
  * @Description: 
  */
-import 'dart:developer';
+import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fuzzy_music/api/toplist_artist.dart';
+import 'package:fuzzy_music/config/window_config.dart';
 import 'package:fuzzy_music/models/index.dart';
 import 'package:fuzzy_music/api/personalized.dart';
 import 'package:get/get.dart';
 
 class RecommendController extends GetxController {
   RecommendController();
+  final _scrollController = ScrollController();
+
+  ScrollController get scrollController => _scrollController;
+
   Personalized _personalized =
       const Personalized(hasTaste: false, code: 0, category: 0, result: []);
   set personalized(value) => _personalized = value;
@@ -28,20 +35,41 @@ class RecommendController extends GetxController {
   Future<void> onInit() async {
     _initPersonalized();
     _initToplistArtist();
+    scrollController.addListener(() {
+      if (isDesktop) {
+        const EXTRA_SCROLL_SPEED = 53;
+        ScrollDirection scrollDirection =
+            _scrollController.position.userScrollDirection;
+        if (scrollDirection != ScrollDirection.idle) {
+          double scrollEnd = _scrollController.offset +
+              (scrollDirection == ScrollDirection.reverse
+                  ? EXTRA_SCROLL_SPEED
+                  : -EXTRA_SCROLL_SPEED);
+          scrollEnd = min(_scrollController.position.maxScrollExtent,
+              max(_scrollController.position.minScrollExtent, scrollEnd));
+          _scrollController.jumpTo(scrollEnd);
+        }
+      }
+    });
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
   }
 
   // 初始化推荐歌单
   _initPersonalized() async {
     final p = await PersonalizedApi.personalized();
-    _personalized = p;
+    personalized = p;
     update();
   }
 
   // 初始化推荐艺人
   _initToplistArtist() async {
-    final toplistArtist = await ToplistArtistApi.topListArtist();
-    _toplistArtist = toplistArtist;
+    final t = await ToplistArtistApi.topListArtist();
+    toplistArtist = t;
     update();
   }
 }

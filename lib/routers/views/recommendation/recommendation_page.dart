@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 02:38:08
+ * @LastEditTime: 2023-01-15 05:03:51
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
 import 'package:flutter/src/widgets/container.dart';
@@ -45,7 +46,7 @@ class RecommendationPage extends StatelessWidget {
 
   _buildArtists(artists) {
     List<Widget> arts = [];
-    const size = Size(170, 170);
+    const size = Size(190, 190);
     for (Artist a in artists) {
       arts.add(RecommendOval(imgUrl: a.picUrl, title: a.name, size: size));
     }
@@ -59,6 +60,7 @@ class RecommendationPage extends StatelessWidget {
         init: RecommendController(),
         builder: (_) {
           return ListView(
+            controller: _.scrollController,
             padding: EdgeInsets.symmetric(
                 horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
             children: [

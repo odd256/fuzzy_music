@@ -1,13 +1,14 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-12 17:45:16
+ * @LastEditTime: 2023-01-15 04:42:12
  * @FilePath: \fuzzy_music\lib\main.dart
  * @Description: 
  */
 import 'dart:developer';
 
 import 'package:fluent_ui/fluent_ui.dart' as fui;
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fuzzy_music/config/window_config.dart';
 import 'package:fuzzy_music/routers/app_pages.dart';
@@ -38,7 +39,20 @@ initService() async {
   Get.put(TrayService().init());
   log('--------initService done---------');
 }
-
+// class MyHomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         body: ListView.builder(
+//           physics: BouncingScrollPhysics(),
+//           itemCount: 100,
+//           itemBuilder: (context, index) => Text("$index"),
+//         ),
+//       ),
+//     );
+//   }
+// }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -51,7 +65,7 @@ class MyApp extends StatelessWidget {
         theme: lightThemeData,
         darkTheme: darkThemeData,
         themeMode: fui.ThemeMode.system,
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         initialRoute: AppPages.initPage,
         getPages: AppPages.routes,
       ),

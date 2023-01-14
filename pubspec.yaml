@@ -19,7 +19,7 @@ dependencies:
   flutter_acrylic: ^1.1.0+1       # 亚克力效果
   system_tray: ^2.0.2             # 系统托盘
   cached_network_image: ^3.2.3    # 缓存图片
-  fluent_ui: ^4.1.3               # fluentUI
+  fluent_ui: ^4.1.4               # fluentUI
   netease_music_api:              # 网易云音乐api
     path: NeteaseCloudMusicApi-dart/
 dev_dependencies:
