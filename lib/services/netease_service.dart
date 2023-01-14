@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 18:25:15
- * @LastEditTime: 2023-01-04 21:23:42
+ * @LastEditTime: 2023-01-15 00:05:32
  * @FilePath: \fuzzy_music\lib\services\netease_service.dart
  * @Description: 
  */
@@ -12,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:netease_music_api/netease_cloud_music.dart';
 
 class NeteaseService extends GetxService {
-
   // 开启服务
   Future<HttpServer> init({address = "localhost", int port = 3000}) {
     return HttpServer.bind(address, port, shared: true).then((server) {
@@ -38,7 +37,6 @@ class NeteaseService extends GetxService {
       debugPrint(s.toString());
       return const Answer();
     });
-
     request.response.statusCode = answer.status;
     request.response.cookies.addAll(answer.cookie);
     request.response.write(json.encode(answer.body));
