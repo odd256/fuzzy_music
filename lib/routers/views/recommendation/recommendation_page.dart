@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 06:44:29
+ * @LastEditTime: 2023-01-15 18:56:46
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -21,17 +21,31 @@ import 'package:get/get.dart';
 class RecommendationPage extends StatelessWidget {
   const RecommendationPage({super.key});
 
-  _buildPlaylists(playlists) {
+  _buildPlaylists(playlists, {List<int> selectedIndex = const <int>[]}) {
     const size = Size(205, 205);
     List<Widget> pls = [];
-    for (var p in playlists) {
-      pls.add(
-        SongListCard(
-          title: p.name,
-          imgUrl: p.picUrl,
-          size: size,
-        ),
-      );
+    if (selectedIndex.isEmpty) {
+      for (var p in playlists) {
+        pls.add(
+          SongListCard(
+            title: p.name,
+            imgUrl: p is TopSonglist ? p.coverImgUrl : p.picUrl,
+            size: size,
+          ),
+        );
+      }
+    } else {
+      for (int i in selectedIndex) {
+        pls.add(
+          SongListCard(
+            title: playlists[i].name,
+            imgUrl: playlists[i] is TopSonglist
+                ? playlists[i].coverImgUrl
+                : playlists[i].picUrl,
+            size: size,
+          ),
+        );
+      }
     }
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -47,7 +61,7 @@ class RecommendationPage extends StatelessWidget {
 
   _buildArtists(artists) {
     List<Widget> arts = [];
-    const size = Size(190, 190);
+    const size = Size(182, 182);
     for (Artist a in artists) {
       arts.add(RecommendOval(imgUrl: a.picUrl, title: a.name, size: size));
     }
@@ -126,82 +140,13 @@ class RecommendationPage extends StatelessWidget {
                   ? _.topAlbum.monthData.sublist(5, 10)
                   : _.topAlbum.monthData),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                  ],
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Text(
                   '排行榜',
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                    // SongListCard(
-                    //   title: 'title',
-                    //   imgUrl: 'imgUrl',
-                    //   size: songListCardSize,
-                    // ),
-                  ],
-                ),
-              ),
+              _buildPlaylists(_.toplist.list, selectedIndex: _.toplist.list.isNotEmpty? [0, 11, 12, 28, 13]:[]),
             ],
           );
         });
