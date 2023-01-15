@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:01:32
- * @LastEditTime: 2023-01-15 17:34:13
+ * @LastEditTime: 2023-01-15 23:11:28
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_page.dart
  * @Description: 
  */
@@ -9,7 +9,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
 import 'package:flutter/material.dart';
 import 'package:fuzzy_music/routers/views/bottom_player_bar.dart';
+import 'package:fuzzy_music/routers/views/discovery/discovery_page.dart';
 import 'package:fuzzy_music/routers/views/home/home_controller.dart';
+import 'package:fuzzy_music/routers/views/my_music/my_music_page.dart';
+import 'package:fuzzy_music/routers/views/recommendation/recommendation_page.dart';
 import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -56,7 +59,9 @@ class _HomePageState extends State<HomePage> with WindowListener {
               )
             ],
           )),
-      body: Obx(() => HomeController.to.currentPage),
+      body: GetBuilder<HomeController>(
+        builder: (_)=>_.currentPage,
+      ),
     );
   }
 
@@ -143,51 +148,49 @@ class TabSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
-    return Row(
-      children: [
-        Obx(
-          () => fui.ToggleButton(
-              checked: homeController.tabNames == TabNames.recommend,
-              onChanged: (_) {
-                homeController.tabNames = TabNames.recommend;
-                homeController.currentPage = homeController.pages['recommend']!;
-              },
-              child: Text(
-                '推荐',
-                style: Theme.of(context).textTheme.button,
-              )),
-        ),
-        const SizedBox(
-          width: 25,
-        ),
-        Obx(
-          () => fui.ToggleButton(
-              checked: homeController.tabNames == TabNames.discovery,
-              onChanged: (_) {
-                homeController.tabNames = TabNames.discovery;
-                homeController.currentPage = homeController.pages['discovery']!;
-              },
-              child: Text(
-                '发现',
-                style: Theme.of(context).textTheme.button,
-              )),
-        ),
-        const SizedBox(
-          width: 25,
-        ),
-        Obx(
-          () => fui.ToggleButton(
-              checked: homeController.tabNames == TabNames.myMusic,
-              onChanged: (_) {
-                homeController.tabNames = TabNames.myMusic;
-                homeController.currentPage = homeController.pages['myMusic']!;
-              },
-              child: Text(
-                '我的乐库',
-                style: Theme.of(context).textTheme.button,
-              )),
-        ),
-      ],
+    return GetBuilder<HomeController>(
+      initState: (_) {},
+      builder: (_) {
+        return Row(
+          children: [
+            fui.ToggleButton(
+                checked: _.currentPage is RecommendationPage,
+                onChanged: (_) {
+                  homeController.currentPage =
+                      homeController.pages['recommend']!;
+                },
+                child: Text(
+                  '推荐',
+                  style: Theme.of(context).textTheme.button,
+                )),
+            const SizedBox(
+              width: 25,
+            ),
+            fui.ToggleButton(
+                checked: _.currentPage is DiscoveryPage,
+                onChanged: (_) {
+                  homeController.currentPage =
+                      homeController.pages['discovery']!;
+                },
+                child: Text(
+                  '发现',
+                  style: Theme.of(context).textTheme.button,
+                )),
+            const SizedBox(
+              width: 25,
+            ),
+            fui.ToggleButton(
+                checked: _.currentPage is MyMusicPage,
+                onChanged: (_) {
+                  homeController.currentPage = homeController.pages['myMusic']!;
+                },
+                child: Text(
+                  '我的乐库',
+                  style: Theme.of(context).textTheme.button,
+                )),
+          ],
+        );
+      },
     );
   }
 }

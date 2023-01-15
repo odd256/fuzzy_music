@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 20:24:28
+ * @LastEditTime: 2023-01-15 22:57:03
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -15,6 +15,7 @@ import 'package:fluent_ui/fluent_ui.dart' as fui;
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fuzzy_music/models/index.dart';
+import 'package:fuzzy_music/routers/views/home/home_controller.dart';
 import 'package:fuzzy_music/routers/views/recommendation/recommend_controller.dart';
 import 'package:get/get.dart';
 
@@ -177,64 +178,66 @@ class _SongListCardState extends State<SongListCard> {
       width: widget.size.width,
       child: Column(
         children: [
-          TextButton(
-            style: const ButtonStyle(
-                overlayColor: MaterialStatePropertyAll(Colors.transparent),
-                padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
-            onPressed: () => {print('pic')},
-            child: MouseRegion(
-              onEnter: (event) => setState(() {
-                isShowed = true;
-              }),
-              onExit: (event) => setState(() {
-                isShowed = false;
-              }),
-              child: Stack(alignment: Alignment.center, children: [
-                Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: isShowed
-                        ? [
-                            BoxShadow(
-                              // color: Theme.of(context).focusColor, //底色,阴影颜色
-                              color: Theme.of(context).hoverColor, //底色,阴影颜色
-                              offset: Offset(0, 8), //阴影位置,从什么位置开始
-                              blurRadius: 8, // 阴影模糊层度
-                              spreadRadius: 6, //阴影模糊大小
-                            )
-                          ]
-                        : [],
+          GetBuilder<HomeController>(builder: (_) {
+            return TextButton(
+              style: const ButtonStyle(
+                  overlayColor: MaterialStatePropertyAll(Colors.transparent),
+                  padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
+              onPressed: () => _.currentPage = _.pages['playlist']!,
+              child: MouseRegion(
+                onEnter: (event) => setState(() {
+                  isShowed = true;
+                }),
+                onExit: (event) => setState(() {
+                  isShowed = false;
+                }),
+                child: Stack(alignment: Alignment.center, children: [
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: isShowed
+                          ? [
+                              BoxShadow(
+                                // color: Theme.of(context).focusColor, //底色,阴影颜色
+                                color: Theme.of(context).hoverColor, //底色,阴影颜色
+                                offset: Offset(0, 8), //阴影位置,从什么位置开始
+                                blurRadius: 8, // 阴影模糊层度
+                                spreadRadius: 6, //阴影模糊大小
+                              )
+                            ]
+                          : [],
+                    ),
+                    child: CachedNetworkImage(
+                      width: widget.size.width,
+                      height: widget.size.height,
+                      fit: BoxFit.cover,
+                      imageUrl: widget.imgUrl,
+                      // placeholder: (context, url) => CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
                   ),
-                  child: CachedNetworkImage(
-                    width: widget.size.width,
-                    height: widget.size.height,
-                    fit: BoxFit.cover,
-                    imageUrl: widget.imgUrl,
-                    // placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
-                ),
-                if (isShowed)
-                  IconButton(
-                    style: ButtonStyle(
-                        padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
-                        foregroundColor:
-                            MaterialStatePropertyAll(Colors.black)),
-                    onPressed: () => {print('icon')},
-                    iconSize: 46,
-                    mouseCursor: SystemMouseCursors.basic,
-                    icon: ClipOval(
-                        child: Container(
-                            color: Theme.of(context).canvasColor,
-                            child: Icon(
-                              color: Theme.of(context).iconTheme.color,
-                              Icons.play_arrow_rounded,
-                            ))),
-                  )
-              ]),
-            ),
-          ),
+                  if (isShowed)
+                    IconButton(
+                      style: ButtonStyle(
+                          padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                          foregroundColor:
+                              MaterialStatePropertyAll(Colors.black)),
+                      onPressed: () => {print('icon')},
+                      iconSize: 46,
+                      mouseCursor: SystemMouseCursors.basic,
+                      icon: ClipOval(
+                          child: Container(
+                              color: Theme.of(context).canvasColor,
+                              child: Icon(
+                                color: Theme.of(context).iconTheme.color,
+                                Icons.play_arrow_rounded,
+                              ))),
+                    )
+                ]),
+              ),
+            );
+          }),
           const SizedBox(
             height: 8,
           ),
@@ -300,16 +303,16 @@ class _RecommendOvalState extends State<RecommendOval> {
               onExit: (event) => setState(() {
                 isShowed = false;
               }),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [CachedNetworkImage(
+              child: Stack(alignment: Alignment.center, children: [
+                CachedNetworkImage(
                   fit: BoxFit.cover,
                   height: widget.size.height,
                   width: widget.size.width,
                   imageUrl: widget.imgUrl,
                   // placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
-                ),if (isShowed)
+                ),
+                if (isShowed)
                   IconButton(
                     style: ButtonStyle(
                         padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
@@ -325,8 +328,8 @@ class _RecommendOvalState extends State<RecommendOval> {
                               color: Theme.of(context).iconTheme.color,
                               Icons.play_arrow_rounded,
                             ))),
-                  )]
-              ),
+                  )
+              ]),
             ),
           ),
         ),
