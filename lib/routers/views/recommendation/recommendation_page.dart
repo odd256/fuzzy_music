@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 18:56:46
+ * @LastEditTime: 2023-01-15 20:24:28
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -146,14 +146,16 @@ class RecommendationPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
-              _buildPlaylists(_.toplist.list, selectedIndex: _.toplist.list.isNotEmpty? [0, 11, 12, 28, 13]:[]),
+              _buildPlaylists(_.toplist.list,
+                  selectedIndex:
+                      _.toplist.list.isNotEmpty ? [0, 11, 12, 28, 13] : []),
             ],
           );
         });
   }
 }
 
-class SongListCard extends StatelessWidget {
+class SongListCard extends StatefulWidget {
   final String title;
   final String imgUrl;
   final Size size;
@@ -162,29 +164,82 @@ class SongListCard extends StatelessWidget {
       required this.title,
       required this.imgUrl,
       required this.size});
+  @override
+  State<SongListCard> createState() => _SongListCardState();
+}
+
+class _SongListCardState extends State<SongListCard> {
+  bool isShowed = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width,
+      width: widget.size.width,
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              width: size.width,
-              height: size.height,
-              fit: BoxFit.cover,
-              imageUrl: imgUrl,
-              // placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+          TextButton(
+            style: const ButtonStyle(
+                overlayColor: MaterialStatePropertyAll(Colors.transparent),
+                padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
+            onPressed: () => {print('pic')},
+            child: MouseRegion(
+              onEnter: (event) => setState(() {
+                isShowed = true;
+              }),
+              onExit: (event) => setState(() {
+                isShowed = false;
+              }),
+              child: Stack(alignment: Alignment.center, children: [
+                Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: isShowed
+                        ? [
+                            BoxShadow(
+                              // color: Theme.of(context).focusColor, //底色,阴影颜色
+                              color: Theme.of(context).hoverColor, //底色,阴影颜色
+                              offset: Offset(0, 8), //阴影位置,从什么位置开始
+                              blurRadius: 8, // 阴影模糊层度
+                              spreadRadius: 6, //阴影模糊大小
+                            )
+                          ]
+                        : [],
+                  ),
+                  child: CachedNetworkImage(
+                    width: widget.size.width,
+                    height: widget.size.height,
+                    fit: BoxFit.cover,
+                    imageUrl: widget.imgUrl,
+                    // placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                ),
+                if (isShowed)
+                  IconButton(
+                    style: ButtonStyle(
+                        padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                        foregroundColor:
+                            MaterialStatePropertyAll(Colors.black)),
+                    onPressed: () => {print('icon')},
+                    iconSize: 46,
+                    mouseCursor: SystemMouseCursors.basic,
+                    icon: ClipOval(
+                        child: Container(
+                            color: Theme.of(context).canvasColor,
+                            child: Icon(
+                              color: Theme.of(context).iconTheme.color,
+                              Icons.play_arrow_rounded,
+                            ))),
+                  )
+              ]),
             ),
           ),
           const SizedBox(
             height: 8,
           ),
           Text(
-            title,
+            widget.title,
             style: Theme.of(context).textTheme.subtitle1,
           )
         ],
@@ -211,36 +266,76 @@ class RecommendCard extends StatelessWidget {
   }
 }
 
-class RecommendOval extends StatelessWidget {
+class RecommendOval extends StatefulWidget {
   final String title;
   final String imgUrl;
   final Size size;
   const RecommendOval(
       {super.key,
-      required this.imgUrl,
       required this.title,
+      required this.imgUrl,
       required this.size});
+
+  @override
+  State<RecommendOval> createState() => _RecommendOvalState();
+}
+
+class _RecommendOvalState extends State<RecommendOval> {
+  bool isShowed = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ClipOval(
-          child: CachedNetworkImage(
-            fit: BoxFit.cover,
-            height: size.height,
-            width: size.width,
-            imageUrl: imgUrl,
-            // placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
+          child: TextButton(
+            style: const ButtonStyle(
+                overlayColor: MaterialStatePropertyAll(Colors.transparent),
+                padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
+            onPressed: () {},
+            child: MouseRegion(
+              onEnter: (event) => setState(() {
+                isShowed = true;
+              }),
+              onExit: (event) => setState(() {
+                isShowed = false;
+              }),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  height: widget.size.height,
+                  width: widget.size.width,
+                  imageUrl: widget.imgUrl,
+                  // placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),if (isShowed)
+                  IconButton(
+                    style: ButtonStyle(
+                        padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                        foregroundColor:
+                            MaterialStatePropertyAll(Colors.black)),
+                    onPressed: () => {print('icon')},
+                    iconSize: 46,
+                    mouseCursor: SystemMouseCursors.basic,
+                    icon: ClipOval(
+                        child: Container(
+                            color: Theme.of(context).canvasColor,
+                            child: Icon(
+                              color: Theme.of(context).iconTheme.color,
+                              Icons.play_arrow_rounded,
+                            ))),
+                  )]
+              ),
+            ),
           ),
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
-          title,
+          widget.title,
           style: Theme.of(context).textTheme.subtitle1,
-          overflow: TextOverflow.ellipsis,
         )
       ],
     );

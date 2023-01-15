@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-15 17:28:48
+ * @LastEditTime: 2023-01-15 20:06:11
  * @FilePath: \fuzzy_music\lib\main.dart
  * @Description: 
  */
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: const [fui.FluentLocalizations.delegate],
         theme: lightThemeData,
         darkTheme: darkThemeData,
-        themeMode: fui.ThemeMode.dark,
+        themeMode: fui.ThemeMode.system,
         debugShowCheckedModeBanner: false,
         initialRoute: AppPages.initPage,
         getPages: AppPages.routes,
