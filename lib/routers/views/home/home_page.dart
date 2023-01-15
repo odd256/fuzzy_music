@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:01:32
- * @LastEditTime: 2023-01-15 06:51:45
+ * @LastEditTime: 2023-01-15 17:34:13
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_page.dart
  * @Description: 
  */
@@ -32,12 +32,13 @@ class _HomePageState extends State<HomePage> with WindowListener {
     return Scaffold(
       bottomNavigationBar: BottomPlayerBar(),
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(88),
+          preferredSize: Size.fromHeight(kWindowCaptionHeight + 60),
           child: Column(
             children: [
               SizedBox(
-                height: 28,
+                height: const Size.fromHeight(kWindowCaptionHeight).height,
                 child: WindowCaption(
+                  brightness: Theme.of(context).brightness,
                   title: const Text('Fuzzy Music'),
                 ),
               ),
@@ -73,18 +74,27 @@ class _HomePageState extends State<HomePage> with WindowListener {
         context: context,
         builder: (_) {
           return fui.ContentDialog(
-            title: Text('确定要关闭吗？', style: Theme.of(context).textTheme.headline5,),
+            title: Text(
+              '确定要关闭吗？',
+              style: Theme.of(context).textTheme.headline5,
+            ),
             // content: Text('是否要关闭当前窗口', style: Theme.of(context).textTheme.bodyLarge),
             actions: [
               fui.FilledButton(
-                child: const Text('关闭', style: TextStyle(fontFamily: 'msyh'),),
+                child: const Text(
+                  '关闭',
+                  style: TextStyle(fontFamily: 'msyh'),
+                ),
                 onPressed: () {
                   Navigator.pop(context);
                   windowManager.destroy();
                 },
               ),
               fui.Button(
-                child: const Text('取消', style: TextStyle(fontFamily: 'msyh'),),
+                child: const Text(
+                  '取消',
+                  style: TextStyle(fontFamily: 'msyh'),
+                ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
