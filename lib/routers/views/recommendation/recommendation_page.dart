@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-15 22:57:03
+ * @LastEditTime: 2023-01-16 15:38:04
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -16,6 +16,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fuzzy_music/models/index.dart';
 import 'package:fuzzy_music/routers/views/home/home_controller.dart';
+import 'package:fuzzy_music/routers/views/playlist/playlist_page.dart';
 import 'package:fuzzy_music/routers/views/recommendation/recommend_controller.dart';
 import 'package:get/get.dart';
 
@@ -29,8 +30,7 @@ class RecommendationPage extends StatelessWidget {
       for (var p in playlists) {
         pls.add(
           SongListCard(
-            title: p.name,
-            imgUrl: p is TopSonglist ? p.coverImgUrl : p.picUrl,
+            playlist: p,
             size: size,
           ),
         );
@@ -39,10 +39,7 @@ class RecommendationPage extends StatelessWidget {
       for (int i in selectedIndex) {
         pls.add(
           SongListCard(
-            title: playlists[i].name,
-            imgUrl: playlists[i] is TopSonglist
-                ? playlists[i].coverImgUrl
-                : playlists[i].picUrl,
+            playlist: playlists[i],
             size: size,
           ),
         );
@@ -157,14 +154,9 @@ class RecommendationPage extends StatelessWidget {
 }
 
 class SongListCard extends StatefulWidget {
-  final String title;
-  final String imgUrl;
+  final playlist;
   final Size size;
-  const SongListCard(
-      {super.key,
-      required this.title,
-      required this.imgUrl,
-      required this.size});
+  const SongListCard({super.key, required this.playlist, required this.size});
   @override
   State<SongListCard> createState() => _SongListCardState();
 }
@@ -183,7 +175,9 @@ class _SongListCardState extends State<SongListCard> {
               style: const ButtonStyle(
                   overlayColor: MaterialStatePropertyAll(Colors.transparent),
                   padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
-              onPressed: () => _.currentPage = _.pages['playlist']!,
+              onPressed: () => _.currentPage = PlaylistPage(
+                playlistId: widget.playlist.id,
+              ),
               child: MouseRegion(
                 onEnter: (event) => setState(() {
                   isShowed = true;
@@ -212,8 +206,9 @@ class _SongListCardState extends State<SongListCard> {
                       width: widget.size.width,
                       height: widget.size.height,
                       fit: BoxFit.cover,
-                      imageUrl: widget.imgUrl,
-                      // placeholder: (context, url) => CircularProgressIndicator(),
+                      imageUrl: widget.playlist is TopSonglist
+                          ? widget.playlist.coverImgUrl
+                          : widget.playlist.picUrl,
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
@@ -242,7 +237,7 @@ class _SongListCardState extends State<SongListCard> {
             height: 8,
           ),
           Text(
-            widget.title,
+            widget.playlist.name,
             style: Theme.of(context).textTheme.subtitle1,
           )
         ],

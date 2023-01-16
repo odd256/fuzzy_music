@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-13 01:25:07
- * @LastEditTime: 2023-01-15 18:27:21
+ * @LastEditTime: 2023-01-16 15:01:52
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommend_controller.dart
  * @Description: 
  */
@@ -20,6 +20,9 @@ import 'package:get/get.dart';
 
 class RecommendController extends GetxController {
   RecommendController();
+  
+  static RecommendController get to => Get.find();
+  
   final _scrollController = ScrollController();
 
   ScrollController get scrollController => _scrollController;

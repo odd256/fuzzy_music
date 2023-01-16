@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:37:00
- * @LastEditTime: 2023-01-15 23:16:48
+ * @LastEditTime: 2023-01-16 15:37:16
  * @FilePath: \fuzzy_music\lib\routers\views\home\home_controller.dart
  * @Description:
  */
@@ -18,7 +18,7 @@ class HomeController extends GetxController {
     'recommend': RecommendationPage(),
     'discovery': DiscoveryPage(),
     'myMusic': MyMusicPage(),
-    'playlist': PlaylistPage(),
+    'playlist': PlaylistPage(playlistId: 0,),
   };
 
   Widget _currentPage = RecommendationPage();
