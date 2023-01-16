@@ -1,6 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 
+
+
+
+
+
+
+
+
+
 import 'index.dart';
 
 @immutable
@@ -141,7 +150,7 @@ class Playlist {
     required this.copied,
     required this.relateResType,
     required this.subscribers,
-    required this.subscribed,
+    this.subscribed,
     required this.creator,
     required this.tracks,
     required this.videoIds,
@@ -193,7 +202,7 @@ class Playlist {
   final bool copied;
   final dynamic relateResType;
   final List<Subscriber> subscribers;
-  final bool subscribed;
+  final bool? subscribed;
   final Creator creator;
   final List<Track> tracks;
   final dynamic videoIds;
@@ -245,7 +254,7 @@ class Playlist {
     copied: json['copied'] as bool,
     relateResType: json['relateResType'] as dynamic,
     subscribers: (json['subscribers'] as List? ?? []).map((e) => Subscriber.fromJson(e as Map<String, dynamic>)).toList(),
-    subscribed: json['subscribed'] as bool,
+    subscribed: json['subscribed'] != null ? json['subscribed'] as bool : null,
     creator: Creator.fromJson(json['creator'] as Map<String, dynamic>),
     tracks: (json['tracks'] as List? ?? []).map((e) => Track.fromJson(e as Map<String, dynamic>)).toList(),
     videoIds: json['videoIds'] as dynamic,
@@ -405,7 +414,7 @@ class Playlist {
     bool? copied,
     dynamic? relateResType,
     List<Subscriber>? subscribers,
-    bool? subscribed,
+    Optional<bool?>? subscribed,
     Creator? creator,
     List<Track>? tracks,
     dynamic? videoIds,
@@ -456,7 +465,7 @@ class Playlist {
     copied: copied ?? this.copied,
     relateResType: relateResType ?? this.relateResType,
     subscribers: subscribers ?? this.subscribers,
-    subscribed: subscribed ?? this.subscribed,
+    subscribed: checkOptional(subscribed, () => this.subscribed),
     creator: creator ?? this.creator,
     tracks: tracks ?? this.tracks,
     videoIds: videoIds ?? this.videoIds,
@@ -612,7 +621,6 @@ class Subscriber {
     'anchor': anchor,
     'avatarImgIdStr': avatarImgIdStr,
     'backgroundImgIdStr': backgroundImgIdStr,
-    'avatarImgId_str': avatarImgIdStr
   };
 
   Subscriber clone() => Subscriber(
@@ -1017,7 +1025,7 @@ class Track {
   final int t;
   final List<Ar> ar;
   final List<dynamic> alia;
-  final int pop;
+  final double pop;
   final int st;
   final String rt;
   final int fee;
@@ -1064,7 +1072,7 @@ class Track {
     t: json['t'] as int,
     ar: (json['ar'] as List? ?? []).map((e) => Ar.fromJson(e as Map<String, dynamic>)).toList(),
     alia: (json['alia'] as List? ?? []).map((e) => e as dynamic).toList(),
-    pop: json['pop'] as int,
+    pop: json['pop'] as double,
     st: json['st'] as int,
     rt: json['rt'].toString(),
     fee: json['fee'] as int,
@@ -1209,7 +1217,7 @@ class Track {
     int? t,
     List<Ar>? ar,
     List<dynamic>? alia,
-    int? pop,
+    double? pop,
     int? st,
     String? rt,
     int? fee,
@@ -1445,13 +1453,13 @@ class H {
   final int br;
   final int fid;
   final int size;
-  final int vd;
+  final double vd;
 
   factory H.fromJson(Map<String,dynamic> json) => H(
     br: json['br'] as int,
     fid: json['fid'] as int,
     size: json['size'] as int,
-    vd: json['vd'] as int
+    vd: json['vd'] as double
   );
   
   Map<String, dynamic> toJson() => {
@@ -1473,7 +1481,7 @@ class H {
     int? br,
     int? fid,
     int? size,
-    int? vd
+    double? vd
   }) => H(
     br: br ?? this.br,
     fid: fid ?? this.fid,
@@ -1502,13 +1510,13 @@ class M {
   final int br;
   final int fid;
   final int size;
-  final int vd;
+  final double vd;
 
   factory M.fromJson(Map<String,dynamic> json) => M(
     br: json['br'] as int,
     fid: json['fid'] as int,
     size: json['size'] as int,
-    vd: json['vd'] as int
+    vd: json['vd'] as double
   );
   
   Map<String, dynamic> toJson() => {
@@ -1530,7 +1538,7 @@ class M {
     int? br,
     int? fid,
     int? size,
-    int? vd
+    double? vd
   }) => M(
     br: br ?? this.br,
     fid: fid ?? this.fid,
@@ -1559,13 +1567,13 @@ class L {
   final int br;
   final int fid;
   final int size;
-  final int vd;
+  final double vd;
 
   factory L.fromJson(Map<String,dynamic> json) => L(
     br: json['br'] as int,
     fid: json['fid'] as int,
     size: json['size'] as int,
-    vd: json['vd'] as int
+    vd: json['vd'] as double
   );
   
   Map<String, dynamic> toJson() => {
@@ -1587,7 +1595,7 @@ class L {
     int? br,
     int? fid,
     int? size,
-    int? vd
+    double? vd
   }) => L(
     br: br ?? this.br,
     fid: fid ?? this.fid,

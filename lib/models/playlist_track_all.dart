@@ -120,11 +120,11 @@ class Song {
   final String cf;
   final Al al;
   final int dt;
-  final H h;
-  final M m;
-  final L l;
-  final Sq sq;
-  final Hr hr;
+  final H? h;
+  final M? m;
+  final L? l;
+  final Sq? sq;
+  final Hr? hr;
   final dynamic a;
   final String cd;
   final int no;
@@ -217,11 +217,11 @@ class Song {
     'cf': cf,
     'al': al.toJson(),
     'dt': dt,
-    'h': h.toJson(),
-    'm': m.toJson(),
-    'l': l.toJson(),
-    'sq': sq.toJson(),
-    'hr': hr.toJson(),
+    'h': h?.toJson(),
+    'm': m?.toJson(),
+    'l': l?.toJson(),
+    'sq': sq?.toJson(),
+    'hr': hr?.toJson(),
     'a': a,
     'cd': cd,
     'no': no,
@@ -266,11 +266,11 @@ class Song {
     cf: cf,
     al: al.clone(),
     dt: dt,
-    h: h.clone(),
-    m: m.clone(),
-    l: l.clone(),
-    sq: sq.clone(),
-    hr: hr.clone(),
+    h: h?.clone(),
+    m: m?.clone(),
+    l: l?.clone(),
+    sq: sq?.clone(),
+    hr: hr?.clone(),
     a: a,
     cd: cd,
     no: no,
