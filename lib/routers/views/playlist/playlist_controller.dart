@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:42:13
- * @LastEditTime: 2023-01-16 16:19:21
+ * @LastEditTime: 2023-01-17 00:20:07
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_controller.dart
  * @Description: 
  */
@@ -30,14 +30,8 @@ class PlaylistController extends GetxController {
 
   @override
   void onInit() {
-    _initPlaylistInfo();
     _initPlaylistData();
     super.onInit();
-  }
-
-  // 初始化歌单的信息
-  _initPlaylistInfo() async {
-    update();
   }
 
   // 初始化歌单歌曲数据

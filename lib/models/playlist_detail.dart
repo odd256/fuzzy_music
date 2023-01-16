@@ -587,7 +587,7 @@ class Subscriber {
     avatarDetail: json['avatarDetail'] as dynamic,
     anchor: json['anchor'] as bool,
     avatarImgIdStr: json['avatarImgIdStr'].toString(),
-    backgroundImgIdStr: json['backgroundImgIdStr'].toString(),
+    backgroundImgIdStr: json['backgroundImgIdStr'].toString()
   );
   
   Map<String, dynamic> toJson() => {
@@ -620,7 +620,7 @@ class Subscriber {
     'avatarDetail': avatarDetail,
     'anchor': anchor,
     'avatarImgIdStr': avatarImgIdStr,
-    'backgroundImgIdStr': backgroundImgIdStr,
+    'backgroundImgIdStr': backgroundImgIdStr
   };
 
   Subscriber clone() => Subscriber(
@@ -653,7 +653,7 @@ class Subscriber {
     avatarDetail: avatarDetail,
     anchor: anchor,
     avatarImgIdStr: avatarImgIdStr,
-    backgroundImgIdStr: backgroundImgIdStr,
+    backgroundImgIdStr: backgroundImgIdStr
   );
 
 
@@ -687,7 +687,7 @@ class Subscriber {
     dynamic? avatarDetail,
     bool? anchor,
     String? avatarImgIdStr,
-    String? backgroundImgIdStr,
+    String? backgroundImgIdStr
   }) => Subscriber(
     defaultAvatar: defaultAvatar ?? this.defaultAvatar,
     province: province ?? this.province,
@@ -723,10 +723,10 @@ class Subscriber {
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Subscriber && defaultAvatar == other.defaultAvatar && province == other.province && authStatus == other.authStatus && followed == other.followed && avatarUrl == other.avatarUrl && accountStatus == other.accountStatus && gender == other.gender && city == other.city && birthday == other.birthday && userId == other.userId && userType == other.userType && nickname == other.nickname && signature == other.signature && description == other.description && detailDescription == other.detailDescription && avatarImgId == other.avatarImgId && backgroundImgId == other.backgroundImgId && backgroundUrl == other.backgroundUrl && authority == other.authority && mutual == other.mutual && expertTags == other.expertTags && experts == other.experts && djStatus == other.djStatus && vipType == other.vipType && remarkName == other.remarkName && authenticationTypes == other.authenticationTypes && avatarDetail == other.avatarDetail && anchor == other.anchor && avatarImgIdStr == other.avatarImgIdStr && backgroundImgIdStr == other.backgroundImgIdStr && avatarImgIdStr == other.avatarImgIdStr;
+    || other is Subscriber && defaultAvatar == other.defaultAvatar && province == other.province && authStatus == other.authStatus && followed == other.followed && avatarUrl == other.avatarUrl && accountStatus == other.accountStatus && gender == other.gender && city == other.city && birthday == other.birthday && userId == other.userId && userType == other.userType && nickname == other.nickname && signature == other.signature && description == other.description && detailDescription == other.detailDescription && avatarImgId == other.avatarImgId && backgroundImgId == other.backgroundImgId && backgroundUrl == other.backgroundUrl && authority == other.authority && mutual == other.mutual && expertTags == other.expertTags && experts == other.experts && djStatus == other.djStatus && vipType == other.vipType && remarkName == other.remarkName && authenticationTypes == other.authenticationTypes && avatarDetail == other.avatarDetail && anchor == other.anchor && avatarImgIdStr == other.avatarImgIdStr && backgroundImgIdStr == other.backgroundImgIdStr;
 
   @override
-  int get hashCode => defaultAvatar.hashCode ^ province.hashCode ^ authStatus.hashCode ^ followed.hashCode ^ avatarUrl.hashCode ^ accountStatus.hashCode ^ gender.hashCode ^ city.hashCode ^ birthday.hashCode ^ userId.hashCode ^ userType.hashCode ^ nickname.hashCode ^ signature.hashCode ^ description.hashCode ^ detailDescription.hashCode ^ avatarImgId.hashCode ^ backgroundImgId.hashCode ^ backgroundUrl.hashCode ^ authority.hashCode ^ mutual.hashCode ^ expertTags.hashCode ^ experts.hashCode ^ djStatus.hashCode ^ vipType.hashCode ^ remarkName.hashCode ^ authenticationTypes.hashCode ^ avatarDetail.hashCode ^ anchor.hashCode ^ avatarImgIdStr.hashCode ^ backgroundImgIdStr.hashCode ^ avatarImgIdStr.hashCode;
+  int get hashCode => defaultAvatar.hashCode ^ province.hashCode ^ authStatus.hashCode ^ followed.hashCode ^ avatarUrl.hashCode ^ accountStatus.hashCode ^ gender.hashCode ^ city.hashCode ^ birthday.hashCode ^ userId.hashCode ^ userType.hashCode ^ nickname.hashCode ^ signature.hashCode ^ description.hashCode ^ detailDescription.hashCode ^ avatarImgId.hashCode ^ backgroundImgId.hashCode ^ backgroundUrl.hashCode ^ authority.hashCode ^ mutual.hashCode ^ expertTags.hashCode ^ experts.hashCode ^ djStatus.hashCode ^ vipType.hashCode ^ remarkName.hashCode ^ authenticationTypes.hashCode ^ avatarDetail.hashCode ^ anchor.hashCode ^ avatarImgIdStr.hashCode ^ backgroundImgIdStr.hashCode;
 }
 
 @immutable
@@ -826,7 +826,7 @@ class Creator {
     avatarDetail: json['avatarDetail'] as dynamic,
     anchor: json['anchor'] as bool,
     avatarImgIdStr: json['avatarImgIdStr'].toString(),
-    backgroundImgIdStr: json['backgroundImgIdStr'].toString(),
+    backgroundImgIdStr: json['backgroundImgIdStr'].toString()
   );
   
   Map<String, dynamic> toJson() => {
@@ -859,7 +859,7 @@ class Creator {
     'avatarDetail': avatarDetail,
     'anchor': anchor,
     'avatarImgIdStr': avatarImgIdStr,
-    'backgroundImgIdStr': backgroundImgIdStr,
+    'backgroundImgIdStr': backgroundImgIdStr
   };
 
   Creator clone() => Creator(
@@ -892,7 +892,7 @@ class Creator {
     avatarDetail: avatarDetail,
     anchor: anchor,
     avatarImgIdStr: avatarImgIdStr,
-    backgroundImgIdStr: backgroundImgIdStr,
+    backgroundImgIdStr: backgroundImgIdStr
   );
 
 
@@ -926,7 +926,7 @@ class Creator {
     dynamic? avatarDetail,
     bool? anchor,
     String? avatarImgIdStr,
-    String? backgroundImgIdStr,
+    String? backgroundImgIdStr
   }) => Creator(
     defaultAvatar: defaultAvatar ?? this.defaultAvatar,
     province: province ?? this.province,
@@ -962,10 +962,10 @@ class Creator {
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Creator && defaultAvatar == other.defaultAvatar && province == other.province && authStatus == other.authStatus && followed == other.followed && avatarUrl == other.avatarUrl && accountStatus == other.accountStatus && gender == other.gender && city == other.city && birthday == other.birthday && userId == other.userId && userType == other.userType && nickname == other.nickname && signature == other.signature && description == other.description && detailDescription == other.detailDescription && avatarImgId == other.avatarImgId && backgroundImgId == other.backgroundImgId && backgroundUrl == other.backgroundUrl && authority == other.authority && mutual == other.mutual && expertTags == other.expertTags && experts == other.experts && djStatus == other.djStatus && vipType == other.vipType && remarkName == other.remarkName && authenticationTypes == other.authenticationTypes && avatarDetail == other.avatarDetail && anchor == other.anchor && avatarImgIdStr == other.avatarImgIdStr && backgroundImgIdStr == other.backgroundImgIdStr && avatarImgIdStr == other.avatarImgIdStr;
+    || other is Creator && defaultAvatar == other.defaultAvatar && province == other.province && authStatus == other.authStatus && followed == other.followed && avatarUrl == other.avatarUrl && accountStatus == other.accountStatus && gender == other.gender && city == other.city && birthday == other.birthday && userId == other.userId && userType == other.userType && nickname == other.nickname && signature == other.signature && description == other.description && detailDescription == other.detailDescription && avatarImgId == other.avatarImgId && backgroundImgId == other.backgroundImgId && backgroundUrl == other.backgroundUrl && authority == other.authority && mutual == other.mutual && expertTags == other.expertTags && experts == other.experts && djStatus == other.djStatus && vipType == other.vipType && remarkName == other.remarkName && authenticationTypes == other.authenticationTypes && avatarDetail == other.avatarDetail && anchor == other.anchor && avatarImgIdStr == other.avatarImgIdStr && backgroundImgIdStr == other.backgroundImgIdStr;
 
   @override
-  int get hashCode => defaultAvatar.hashCode ^ province.hashCode ^ authStatus.hashCode ^ followed.hashCode ^ avatarUrl.hashCode ^ accountStatus.hashCode ^ gender.hashCode ^ city.hashCode ^ birthday.hashCode ^ userId.hashCode ^ userType.hashCode ^ nickname.hashCode ^ signature.hashCode ^ description.hashCode ^ detailDescription.hashCode ^ avatarImgId.hashCode ^ backgroundImgId.hashCode ^ backgroundUrl.hashCode ^ authority.hashCode ^ mutual.hashCode ^ expertTags.hashCode ^ experts.hashCode ^ djStatus.hashCode ^ vipType.hashCode ^ remarkName.hashCode ^ authenticationTypes.hashCode ^ avatarDetail.hashCode ^ anchor.hashCode ^ avatarImgIdStr.hashCode ^ backgroundImgIdStr.hashCode ^ avatarImgIdStr.hashCode;
+  int get hashCode => defaultAvatar.hashCode ^ province.hashCode ^ authStatus.hashCode ^ followed.hashCode ^ avatarUrl.hashCode ^ accountStatus.hashCode ^ gender.hashCode ^ city.hashCode ^ birthday.hashCode ^ userId.hashCode ^ userType.hashCode ^ nickname.hashCode ^ signature.hashCode ^ description.hashCode ^ detailDescription.hashCode ^ avatarImgId.hashCode ^ backgroundImgId.hashCode ^ backgroundUrl.hashCode ^ authority.hashCode ^ mutual.hashCode ^ expertTags.hashCode ^ experts.hashCode ^ djStatus.hashCode ^ vipType.hashCode ^ remarkName.hashCode ^ authenticationTypes.hashCode ^ avatarDetail.hashCode ^ anchor.hashCode ^ avatarImgIdStr.hashCode ^ backgroundImgIdStr.hashCode;
 }
 
 @immutable
@@ -987,15 +987,15 @@ class Track {
     required this.cf,
     required this.al,
     required this.dt,
-    required this.h,
-    required this.m,
-    required this.l,
-    required this.sq,
-    required this.hr,
-    required this.a,
+    this.h,
+    this.m,
+    this.l,
+    this.sq,
+    this.hr,
+    this.a,
     required this.cd,
     required this.no,
-    required this.rtUrl,
+    this.rtUrl,
     required this.ftype,
     required this.rtUrls,
     required this.djId,
@@ -1034,15 +1034,15 @@ class Track {
   final String cf;
   final Al al;
   final int dt;
-  final H h;
-  final M m;
-  final L l;
-  final dynamic sq;
-  final dynamic hr;
-  final dynamic a;
+  final H? h;
+  final M? m;
+  final L? l;
+  final dynamic? sq;
+  final dynamic? hr;
+  final dynamic? a;
   final String cd;
   final int no;
-  final dynamic rtUrl;
+  final dynamic? rtUrl;
   final int ftype;
   final List<dynamic> rtUrls;
   final int djId;
@@ -1081,15 +1081,15 @@ class Track {
     cf: json['cf'].toString(),
     al: Al.fromJson(json['al'] as Map<String, dynamic>),
     dt: json['dt'] as int,
-    h: H.fromJson(json['h'] as Map<String, dynamic>),
-    m: M.fromJson(json['m'] as Map<String, dynamic>),
-    l: L.fromJson(json['l'] as Map<String, dynamic>),
-    sq: json['sq'] as dynamic,
-    hr: json['hr'] as dynamic,
-    a: json['a'] as dynamic,
+    h: json['h'] != null ? H.fromJson(json['h'] as Map<String, dynamic>) : null,
+    m: json['m'] != null ? M.fromJson(json['m'] as Map<String, dynamic>) : null,
+    l: json['l'] != null ? L.fromJson(json['l'] as Map<String, dynamic>) : null,
+    sq: json['sq'] != null ? json['sq'] as dynamic : null,
+    hr: json['hr'] != null ? json['hr'] as dynamic : null,
+    a: json['a'] != null ? json['a'] as dynamic : null,
     cd: json['cd'].toString(),
     no: json['no'] as int,
-    rtUrl: json['rtUrl'] as dynamic,
+    rtUrl: json['rtUrl'] != null ? json['rtUrl'] as dynamic : null,
     ftype: json['ftype'] as int,
     rtUrls: (json['rtUrls'] as List? ?? []).map((e) => e as dynamic).toList(),
     djId: json['djId'] as int,
@@ -1129,9 +1129,9 @@ class Track {
     'cf': cf,
     'al': al.toJson(),
     'dt': dt,
-    'h': h.toJson(),
-    'm': m.toJson(),
-    'l': l.toJson(),
+    'h': h?.toJson(),
+    'm': m?.toJson(),
+    'l': l?.toJson(),
     'sq': sq,
     'hr': hr,
     'a': a,
@@ -1177,9 +1177,9 @@ class Track {
     cf: cf,
     al: al.clone(),
     dt: dt,
-    h: h.clone(),
-    m: m.clone(),
-    l: l.clone(),
+    h: h?.clone(),
+    m: m?.clone(),
+    l: l?.clone(),
     sq: sq,
     hr: hr,
     a: a,
@@ -1226,15 +1226,15 @@ class Track {
     String? cf,
     Al? al,
     int? dt,
-    H? h,
-    M? m,
-    L? l,
-    dynamic? sq,
-    dynamic? hr,
-    dynamic? a,
+    Optional<H?>? h,
+    Optional<M?>? m,
+    Optional<L?>? l,
+    Optional<dynamic?>? sq,
+    Optional<dynamic?>? hr,
+    Optional<dynamic?>? a,
     String? cd,
     int? no,
-    dynamic? rtUrl,
+    Optional<dynamic?>? rtUrl,
     int? ftype,
     List<dynamic>? rtUrls,
     int? djId,
@@ -1272,15 +1272,15 @@ class Track {
     cf: cf ?? this.cf,
     al: al ?? this.al,
     dt: dt ?? this.dt,
-    h: h ?? this.h,
-    m: m ?? this.m,
-    l: l ?? this.l,
-    sq: sq ?? this.sq,
-    hr: hr ?? this.hr,
-    a: a ?? this.a,
+    h: checkOptional(h, () => this.h),
+    m: checkOptional(m, () => this.m),
+    l: checkOptional(l, () => this.l),
+    sq: checkOptional(sq, () => this.sq),
+    hr: checkOptional(hr, () => this.hr),
+    a: checkOptional(a, () => this.a),
     cd: cd ?? this.cd,
     no: no ?? this.no,
-    rtUrl: rtUrl ?? this.rtUrl,
+    rtUrl: checkOptional(rtUrl, () => this.rtUrl),
     ftype: ftype ?? this.ftype,
     rtUrls: rtUrls ?? this.rtUrls,
     djId: djId ?? this.djId,
@@ -1468,7 +1468,7 @@ class H {
     'size': size,
     'vd': vd
   };
-
+ 
   H clone() => H(
     br: br,
     fid: fid,

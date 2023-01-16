@@ -1,46 +1,66 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-16 16:23:12
+ * @LastEditTime: 2023-01-17 02:29:23
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
+import 'package:fuzzy_music/models/playlist_track_all.dart';
 import 'package:fuzzy_music/routers/views/playlist/playlist_controller.dart';
+import 'package:fuzzy_music/utils/common_utils.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PlaylistPage extends StatelessWidget {
   final int playlistId;
   const PlaylistPage({super.key, required this.playlistId});
 
+  _buildSongList(List<Song> songs) {
+    List<Widget> sl = [];
+    for (Song s in songs) {
+      sl.add(SongListTile(song: s));
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: sl,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final mediaQuerySize = MediaQuery.of(context).size;
     return GetBuilder<PlaylistController>(
         init: PlaylistController(currentPlaylistId: playlistId),
         builder: (_) {
           return ListView(
-            padding: EdgeInsets.symmetric(
-                horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 30),
             children: [
               Container(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 40),
+                      margin: const EdgeInsets.only(right: 40),
                       height: 270,
                       width: 270,
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: Colors.white),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: CachedNetworkImage(
+                          imageUrl: '${_.playlistDetail?.playlist.coverImgUrl}',
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error)),
                     ),
                     Container(
                       height: 270,
+                      width: 800,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,25 +76,15 @@ class PlaylistPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            '最后更新于 ${_.playlistDetail?.playlist.updateTime} · ${_.playlistDetail?.playlist.trackCount} 首歌',
+                            '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, DateFormat("yyyy-MM-dd hh:mm"))} · ${_.playlistDetail?.playlist.trackCount} 首歌',
                             style: Theme.of(context).textTheme.subtitle2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          Container(
-                            height: 100,
-                            width: 700,
-                            child: TextButton(
-                              style: ButtonStyle(
-                                  padding: MaterialStatePropertyAll(
-                                      EdgeInsets.all(0))),
-                              onPressed: () => {},
-                              child: Text(
-                                '${_.playlistDetail?.playlist.description}',
-                                style: Theme.of(context).textTheme.bodyText1,
-                                maxLines: 4,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
+                          Text(
+                            '${_.playlistDetail?.playlist.description}',
+                            style: Theme.of(context).textTheme.bodyText1,
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           Row(
                             children: [
@@ -83,7 +93,7 @@ class PlaylistPage extends StatelessWidget {
                                   child: Row(children: [
                                     Icon(
                                       Icons.play_arrow_rounded,
-                                      size: 36,
+                                      size: 32,
                                     ),
                                     Text("播放",
                                         style:
@@ -123,7 +133,7 @@ class PlaylistPage extends StatelessWidget {
               SizedBox(
                 height: 100,
               ),
-              SongListTile()
+              _buildSongList(_.playlistTracks.songs)
             ],
           );
         });
@@ -131,35 +141,72 @@ class PlaylistPage extends StatelessWidget {
 }
 
 class SongListTile extends StatelessWidget {
-  const SongListTile({super.key});
+  final Song song;
 
+  const SongListTile({super.key, required this.song});
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          width: 300,
-          child: Row(
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      width: 1070,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: 100,
                 width: 100,
-                color: Colors.white,
+                clipBehavior: Clip.antiAlias,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                child: CachedNetworkImage(
+                    imageUrl: song.al.picUrl,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => Icon(Icons.error)),
               ),
               SizedBox(
                 width: 12,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [Text('歌曲名'), Text('歌手名')],
+              Container(
+                width: 300,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      song.name,
+                      style: Theme.of(context).textTheme.subtitle1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      song.ar.map((e) => e.name).join('/'),
+                      style: Theme.of(context).textTheme.subtitle2,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  ],
+                ),
               )
             ],
           ),
-        ),
-        Text('专辑名'),
-        Text('时长')
-      ],
+          Container(
+              width: 300,
+              child: Text(
+                song.al.name,
+                style: Theme.of(context).textTheme.subtitle2,
+                overflow: TextOverflow.ellipsis,
+              )),
+          Container(
+            width:80,
+            child: Text(
+                '${CommonUtils.timestamps2Datetime(song.dt, DateFormat('mm:ss'))}'),
+          )
+        ],
+      ),
     );
   }
 }
