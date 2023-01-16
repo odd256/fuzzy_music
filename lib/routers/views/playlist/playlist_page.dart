@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-16 15:52:11
+ * @LastEditTime: 2023-01-16 16:23:12
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -46,17 +46,17 @@ class PlaylistPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '想和你躺在草坪上，慵懒地晒着太阳☀',
+                            '${_.playlistDetail?.playlist.name}',
                             style: Theme.of(context).textTheme.headline2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            'Playlist by 树莓小雪糕',
+                            'Created by ${_.playlistDetail?.playlist.creator.nickname}',
                             style: Theme.of(context).textTheme.subtitle1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            '最后更新于 2022年05月14日 · 156 首歌',
+                            '最后更新于 ${_.playlistDetail?.playlist.updateTime} · ${_.playlistDetail?.playlist.trackCount} 首歌',
                             style: Theme.of(context).textTheme.subtitle2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -69,7 +69,7 @@ class PlaylistPage extends StatelessWidget {
                                       EdgeInsets.all(0))),
                               onPressed: () => {},
                               child: Text(
-                                '春天的秘密藏在风里，藏在和煦的阳光里，我想对你说的秘密藏在每一首歌里。 想要和你躺在草坪上，慵懒地晒着太阳☀想要和你靠在一起，分享我的耳机。 你眯着眼，阳光落在你的脸上，你嗅了嗅，闻到近处的花香，我们就这样靠在一起，不说话也很美好。远方的鸟儿在歌唱，唱可爱的你，唱温柔的太阳。宝藏歌单。',
+                                '${_.playlistDetail?.playlist.description}',
                                 style: Theme.of(context).textTheme.bodyText1,
                                 maxLines: 4,
                                 overflow: TextOverflow.ellipsis,

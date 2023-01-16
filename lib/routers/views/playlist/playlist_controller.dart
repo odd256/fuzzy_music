@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:42:13
- * @LastEditTime: 2023-01-16 15:57:58
+ * @LastEditTime: 2023-01-16 16:19:21
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_controller.dart
  * @Description: 
  */
@@ -19,7 +19,7 @@ class PlaylistController extends GetxController {
   PlaylistController({required this.currentPlaylistId});
 
   PlaylistDetail? _playlistDetail;
-  get playlistDetail => _playlistDetail;
+  PlaylistDetail? get playlistDetail => _playlistDetail;
   set playlistDetail(p) => _playlistDetail = p;
 
   PlaylistTrackAll _playlistTracks =
