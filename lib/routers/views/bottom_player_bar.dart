@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-15 06:05:52
+ * @LastEditTime: 2023-01-17 21:14:54
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
@@ -21,21 +21,17 @@ class BottomPlayerBar extends StatelessWidget {
     final mediaQuerySize = MediaQuery.of(context).size;
 
     return BottomAppBar(
-      child: InkWell(
-        hoverColor: Theme.of(context).canvasColor,
-        onTap: () => {},
-        child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
-          height: 88,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              AlbumStateWidget(),
-              PlayerStateWidget(),
-              PlayerControllerWidget()
-            ],
-          ),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
+        height: 88,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            AlbumStateWidget(),
+            PlayerStateWidget(),
+            PlayerControllerWidget()
+          ],
         ),
       ),
     );
@@ -89,26 +85,26 @@ class PlayerStateWidget extends StatelessWidget {
         children: [
           fui.IconButton(
             icon: Icon(
-              CupertinoIcons.backward_end_fill,
-              size: 20,
+              // CupertinoIcons.backward_end_fill,
+              Icons.skip_previous_rounded,
+              size: 32,
               color: Theme.of(context).iconTheme.color,
             ),
             onPressed: () => {},
           ),
-          SizedBox(width: 6),
           fui.IconButton(
             icon: Icon(
-              CupertinoIcons.play_arrow_solid,
-              size: 40,
+              // CupertinoIcons.play_arrow_solid,
+              Icons.play_arrow_rounded,
+              size: 50,
               color: Theme.of(context).iconTheme.color,
             ),
             onPressed: () => {},
           ),
-          SizedBox(width: 6),
           fui.IconButton(
             icon: Icon(
-              CupertinoIcons.forward_end_fill,
-              size: 20,
+              Icons.skip_next_rounded,
+              size: 32,
               color: Theme.of(context).iconTheme.color,
             ),
             onPressed: () => {},

@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 19:47:47
- * @LastEditTime: 2023-01-15 17:08:42
+ * @LastEditTime: 2023-01-17 20:11:54
  * @FilePath: \fuzzy_music\lib\config\theme_config.dart
  * @Description: 
  */
@@ -23,6 +23,8 @@ var lightThemeData = ThemeData(
             color: Colors.black, fontSize: 46, fontWeight: FontWeight.bold),
         headline3: TextStyle(
             color: Colors.black, fontSize: 36, fontWeight: FontWeight.bold),
+        subtitle1: TextStyle(
+            color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
         labelMedium: TextStyle(
             color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)));
 
@@ -39,6 +41,10 @@ var darkThemeData = ThemeData(
             color: Colors.white, fontSize: 46, fontWeight: FontWeight.bold),
         headline3: TextStyle(
             color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold),
+        subtitle1: TextStyle(
+            color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+        subtitle2: TextStyle(
+            color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
         labelMedium: TextStyle(
             color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)));
 
