@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-17 21:07:40
+ * @LastEditTime: 2023-01-18 02:02:23
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -14,6 +14,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
 import 'package:fuzzy_music/models/playlist_track_all.dart';
 import 'package:fuzzy_music/routers/views/playlist/playlist_controller.dart';
+import 'package:fuzzy_music/services/audio_service.dart';
 import 'package:fuzzy_music/utils/common_utils.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -74,22 +75,27 @@ class PlaylistPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${_.playlistDetail?.playlist.name}',
+                            _.playlistDetail?.playlist.name ?? '正在加载中...',
                             style: Theme.of(context).textTheme.headline2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            'Created by ${_.playlistDetail?.playlist.creator.nickname}',
+                            _.playlistDetail == null
+                                ? '正在加载中...'
+                                : 'Created by ${_.playlistDetail?.playlist.creator.nickname}',
                             style: Theme.of(context).textTheme.subtitle1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, DateFormat("yyyy-MM-dd hh:mm"))} · ${_.playlistDetail?.playlist.trackCount} 首歌',
+                            _.playlistDetail == null
+                                ? '正在加载中...'
+                                : '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, DateFormat("yyyy-MM-dd hh:mm"))} · ${_.playlistDetail?.playlist.trackCount} 首歌',
                             style: Theme.of(context).textTheme.subtitle2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            '${_.playlistDetail?.playlist.description}',
+                            _.playlistDetail?.playlist.description ??
+                                '还没加载出来哦!',
                             style: Theme.of(context).textTheme.bodyText1,
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
@@ -163,7 +169,9 @@ class SongListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return fui.ToggleButton(
       checked: false,
-      onChanged: (value) => {},
+      onChanged: (value) {
+        AudioService.to.play(song);
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

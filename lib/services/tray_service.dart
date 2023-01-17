@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 21:10:01
- * @LastEditTime: 2023-01-04 23:30:17
+ * @LastEditTime: 2023-01-18 00:51:24
  * @FilePath: \fuzzy_music\lib\services\tray_service.dart
  * @Description: 
  */
@@ -14,7 +14,7 @@ import 'package:system_tray/system_tray.dart';
 class TrayService extends GetxService {
   static TrayService get to => Get.find();
 
-  Future<void> init() async {
+  Future<TrayService> init() async {
     String path = Platform.isWindows
         ? 'images/tray_icon_original.ico'
         : 'images/tray_icon_original.png';
@@ -31,10 +31,19 @@ class TrayService extends GetxService {
     // create context menu
     final Menu menu = Menu();
     await menu.buildFrom([
-      MenuItemLabel(label: '显示', onClicked: (p0) => appWindow.show(),),
-      MenuItemLabel(label: '隐藏', onClicked: (p0) => appWindow.hide(),),
+      MenuItemLabel(
+        label: '显示',
+        onClicked: (p0) => appWindow.show(),
+      ),
+      MenuItemLabel(
+        label: '隐藏',
+        onClicked: (p0) => appWindow.hide(),
+      ),
       MenuSeparator(),
-      MenuItemLabel(label: '退出', onClicked: (p0) => appWindow.close(),)
+      MenuItemLabel(
+        label: '退出',
+        onClicked: (p0) => appWindow.close(),
+      )
     ]);
 
     // set context menu
@@ -49,5 +58,6 @@ class TrayService extends GetxService {
         Platform.isWindows ? systemTray.popUpContextMenu() : appWindow.show();
       }
     });
+    return this;
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-17 19:43:45
+ * @LastEditTime: 2023-01-18 01:03:07
  * @FilePath: \fuzzy_music\lib\main.dart
  * @Description: 
  */
@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fuzzy_music/config/window_config.dart';
 import 'package:fuzzy_music/routers/app_pages.dart';
+import 'package:fuzzy_music/services/audio_service.dart';
 import 'package:fuzzy_music/services/http_service.dart';
 import 'package:fuzzy_music/services/netease_service.dart';
 import 'package:fuzzy_music/services/tray_service.dart';
@@ -35,6 +36,7 @@ Future<void> main(List<String> args) async {
 initService() async {
   log('--------initService start--------');
   await Get.putAsync(() => NeteaseService().init());
+  await Get.putAsync(() => AudioService().init());
   Get.put(HttpService().init());
   Get.put(TrayService().init());
   log('--------initService done---------');
