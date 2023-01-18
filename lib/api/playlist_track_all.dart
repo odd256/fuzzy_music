@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 
 class PlaylistTrackAllApi {
   static final _dio = Get.find<Dio>();
-  static playlistTrackAll(int id, int limit, int offset) async {
+  static playlistTrackAll(int id, [int limit=10, int offset=0]) async {
     var res = await _dio.get('/playlist/track/all?id=$id&limit=$limit&offset=$offset');
     return PlaylistTrackAll.fromJson(json.decode(res.data));
   }

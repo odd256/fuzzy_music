@@ -1,10 +1,11 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:42:13
- * @LastEditTime: 2023-01-17 20:49:48
+ * @LastEditTime: 2023-01-18 21:47:09
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_controller.dart
  * @Description: 
  */
+import 'package:flutter/material.dart';
 import 'package:fuzzy_music/api/playlist_detail.dart';
 import 'package:fuzzy_music/api/playlist_track_all.dart';
 import 'package:fuzzy_music/models/index.dart';
@@ -17,6 +18,11 @@ class PlaylistController extends GetxController {
   final int currentPlaylistId;
 
   PlaylistController({required this.currentPlaylistId});
+  static PlaylistController get to => Get.find();
+
+  ScrollController _scrollController = ScrollController();
+  ScrollController get scrollController => _scrollController;
+  set scrollController(s) => _scrollController = s;
 
   PlaylistDetail? _playlistDetail;
   PlaylistDetail? get playlistDetail => _playlistDetail;
@@ -36,10 +42,26 @@ class PlaylistController extends GetxController {
 
   // 初始化歌单歌曲数据
   _initPlaylistData() async {
-    final PlaylistDetail pd = await PlaylistDetailaApi.playlistDetail(currentPlaylistId);
+    final PlaylistDetail pd =
+        await PlaylistDetailaApi.playlistDetail(currentPlaylistId);
     playlistDetail = pd;
-    final p = await PlaylistTrackAllApi.playlistTrackAll(pd.playlist.id, 10, 0);
+    final p =
+        await PlaylistTrackAllApi.playlistTrackAll(pd.playlist.id);
     _playlistTracks = p;
     update();
+  }
+
+  // 歌曲分页数据
+  retrieveTracksData({int limit = 20, required int offset}) async {
+    final PlaylistTrackAll p = await PlaylistTrackAllApi.playlistTrackAll(
+        playlistDetail!.playlist.id, limit, offset);
+    playlistTracks.songs.addAll(p.songs);
+    update();
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
   }
 }

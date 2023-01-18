@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-18 19:43:31
+ * @LastEditTime: 2023-01-18 21:45:56
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -23,7 +23,7 @@ class PlaylistPage extends StatelessWidget {
   final int playlistId;
   const PlaylistPage({super.key, required this.playlistId});
 
-  _buildSongList(List<Song> songs) {
+  _buildSongList(List<Song> songs, context) {
     List<Widget> sl = [];
     for (Song s in songs) {
       sl.add(SongListTile(song: s));
@@ -31,10 +31,23 @@ class PlaylistPage extends StatelessWidget {
     return SliverFixedExtentList(
         delegate: SliverChildBuilderDelegate((_, index) {
           if (index == songs.length) {
-            return fui.Button(
-              child: Align(alignment: Alignment.center, child: Text('加载更多')),
-              onPressed: () => {},
-            );
+            if (index ==
+                PlaylistController.to.playlistDetail?.playlist.trackCount) {
+              return Center(
+                child: Text(
+                  '没有更多啦~',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              );
+            } else {
+              PlaylistController.to.retrieveTracksData(offset: songs.length);
+              return Center(
+                child: Text(
+                  '加载中...',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              );
+            }
           } else {
             return SongListTile(song: songs[index]);
           }
@@ -57,7 +70,7 @@ class PlaylistPage extends StatelessWidget {
                   height: 80,
                 ),
               ),
-              _buildSongList(_.playlistTracks.songs),
+              _buildSongList(_.playlistTracks.songs, context),
             ],
           );
         });

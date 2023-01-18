@@ -1,7 +1,7 @@
 <!--
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-18 02:30:09
+ * @LastEditTime: 2023-01-18 21:48:39
  * @FilePath: \fuzzy_music\README.md
  * @Description: 
 -->
@@ -18,7 +18,7 @@
 - [x] 推荐页面UI
 - [x] 歌单页面UI
 - [x] 听个响
-- [ ] 调整Playlist，优化歌单加载
+- [x] 调整Playlist，优化歌单加载
 - [ ] 完善播放逻辑
 - [ ] 添加列表循环，随机播放，单曲循环功能
 - [ ] 添加歌词页面UI
