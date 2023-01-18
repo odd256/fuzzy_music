@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-18 00:45:29
- * @LastEditTime: 2023-01-18 02:07:03
+ * @LastEditTime: 2023-01-18 19:51:17
  * @FilePath: \fuzzy_music\lib\services\audio_service.dart
  * @Description: 
  */
@@ -11,6 +11,7 @@ import 'package:fuzzy_music/api/song_url.dart';
 import 'package:fuzzy_music/models/index.dart';
 import 'package:fuzzy_music/models/song_url.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum PlayState { playing, paused, stopped }
 
@@ -41,6 +42,12 @@ class AudioService extends GetxController {
   Future<AudioService> init() async {
     _player = AudioPlayer();
     await AudioPlayer.global.changeLogLevel(LogLevel.info);
+    // 设置默认音量
+    final prefs = await SharedPreferences.getInstance();
+    print(prefs.getDouble('volume'));
+    _player
+        .setVolume(prefs.getDouble('volume') ?? 0.5)
+        .then((value) => curVolume = prefs.getDouble('volume') ?? 0.5);
     return this;
   }
 
@@ -77,10 +84,12 @@ class AudioService extends GetxController {
   }
 
   volume(double v) async {
-    // 默认的音量为1.0，最高为2.0
-    await _player.setVolume(v).then((value) {
+    // 默认的音量为1.0（最高）
+    await _player.setVolume(v).then((value) async {
       _curVolume = v;
       update();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setDouble('volume', v);
     });
   }
 }

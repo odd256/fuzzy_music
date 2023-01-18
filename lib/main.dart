@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-04 03:00:45
- * @LastEditTime: 2023-01-18 01:03:07
+ * @LastEditTime: 2023-01-18 05:09:57
  * @FilePath: \fuzzy_music\lib\main.dart
  * @Description: 
  */
@@ -29,7 +29,6 @@ Future<void> main(List<String> args) async {
 
   // 启动一些必要服务
   await initService();
-
   runApp(const MyApp());
 }
 

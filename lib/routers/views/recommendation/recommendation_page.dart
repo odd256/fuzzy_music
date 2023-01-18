@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-05 01:31:08
- * @LastEditTime: 2023-01-16 15:38:04
+ * @LastEditTime: 2023-01-18 04:15:08
  * @FilePath: \fuzzy_music\lib\routers\views\recommendation\recommendation_page.dart
  * @Description: 
  */
@@ -209,6 +209,9 @@ class _SongListCardState extends State<SongListCard> {
                       imageUrl: widget.playlist is TopSonglist
                           ? widget.playlist.coverImgUrl
                           : widget.playlist.picUrl,
+                          progressIndicatorBuilder: (context, url,
+                                  downloadProgress) =>
+                              fui.ProgressBar(value: downloadProgress.progress),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
@@ -304,6 +307,9 @@ class _RecommendOvalState extends State<RecommendOval> {
                   height: widget.size.height,
                   width: widget.size.width,
                   imageUrl: widget.imgUrl,
+                  progressIndicatorBuilder: (context, url,
+                                  downloadProgress) =>
+                              fui.ProgressBar(value: downloadProgress.progress),
                   // placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),

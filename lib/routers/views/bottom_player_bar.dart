@@ -1,12 +1,13 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-18 02:20:00
+ * @LastEditTime: 2023-01-18 19:48:00
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -47,7 +48,6 @@ class AlbumStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AudioService>(builder: (_) {
       return Container(
-        width: 300,
         child: Row(
           children: [
             Padding(
@@ -57,26 +57,37 @@ class AlbumStateWidget extends StatelessWidget {
                 child: Container(
                   height: 66,
                   width: 66,
-                  color: Colors.blue,
+                  child: _.curSong == null
+                      ? const FlutterLogo()
+                      : CachedNetworkImage(
+                          imageUrl: _.curSong?.al.picUrl ?? ''),
                 ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(_.curSong?.name ?? '你还没播放歌曲',
-                    style: Theme.of(context).textTheme.subtitle1),
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
+            Container(
+              width: 300,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _.curSong?.name ?? '你还没播放歌曲',
+                    style: Theme.of(context).textTheme.subtitle1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
                     _.curSong?.ar
                             .map((e) => e.name.removeAllWhitespace)
                             .join('/') ??
                         '未知艺术家',
-                    style: Theme.of(context).textTheme.subtitle2),
-              ],
+                    style: Theme.of(context).textTheme.subtitle2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -209,7 +220,7 @@ class PlayerControllerWidget extends StatelessWidget {
               onPressed: () {
                 if (_.curVolume != 0) {
                   _.volume(0);
-                }else {
+                } else {
                   _.volume(0.5);
                 }
               },

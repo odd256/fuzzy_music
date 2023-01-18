@@ -20,6 +20,7 @@ dependencies:
   system_tray: ^2.0.2             # 系统托盘
   cached_network_image: ^3.2.3    # 缓存图片
   fluent_ui: ^4.1.4               # fluentUI
+  shared_preferences: ^2.0.16     # 本地存储
   netease_music_api:              # 网易云音乐api
     path: NeteaseCloudMusicApi-dart/
 dev_dependencies:

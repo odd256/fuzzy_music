@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-18 02:02:23
+ * @LastEditTime: 2023-01-18 19:43:31
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -50,191 +50,215 @@ class PlaylistPage extends StatelessWidget {
           return CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 40),
-                      height: 300,
-                      width: 300,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: CachedNetworkImage(
-                          imageUrl: '${_.playlistDetail?.playlist.coverImgUrl}',
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error)),
-                    ),
-                    Container(
-                      height: 300,
-                      width: 800,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _.playlistDetail?.playlist.name ?? '正在加载中...',
-                            style: Theme.of(context).textTheme.headline2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            _.playlistDetail == null
-                                ? '正在加载中...'
-                                : 'Created by ${_.playlistDetail?.playlist.creator.nickname}',
-                            style: Theme.of(context).textTheme.subtitle1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            _.playlistDetail == null
-                                ? '正在加载中...'
-                                : '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, DateFormat("yyyy-MM-dd hh:mm"))} · ${_.playlistDetail?.playlist.trackCount} 首歌',
-                            style: Theme.of(context).textTheme.subtitle2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            _.playlistDetail?.playlist.description ??
-                                '还没加载出来哦!',
-                            style: Theme.of(context).textTheme.bodyText1,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Row(
-                            children: [
-                              fui.FilledButton(
-                                child: Container(
-                                  child: Row(children: [
-                                    Icon(
-                                      Icons.play_arrow_rounded,
-                                      size: 32,
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    Text("播放",
-                                        style:
-                                            Theme.of(context).textTheme.button)
-                                  ]),
-                                ),
-                                onPressed: () => {},
-                              ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              fui.IconButton(
-                                onPressed: () => {},
-                                icon: Icon(
-                                  Icons.favorite_rounded,
-                                  size: 36,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              fui.IconButton(
-                                onPressed: () => {},
-                                icon: Icon(
-                                  Icons.more_horiz_rounded,
-                                  size: 36,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                child: PlaylistHeader(),
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 80,
                 ),
               ),
-              SliverPadding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: (MediaQuery.of(context).size.width - 1100) / 2),
-                sliver: _buildSongList(_.playlistTracks.songs),
-              )
+              _buildSongList(_.playlistTracks.songs),
             ],
           );
         });
   }
 }
 
-class SongListTile extends StatelessWidget {
+class PlaylistHeader extends StatelessWidget {
+  const PlaylistHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlaylistController>(builder: (_) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(right: 40),
+            height: 300,
+            width: 300,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: CachedNetworkImage(
+                imageUrl: '${_.playlistDetail?.playlist.coverImgUrl}',
+                fit: BoxFit.cover,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    fui.ProgressBar(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error)),
+          ),
+          Container(
+            height: 300,
+            width: 800,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _.playlistDetail?.playlist.name ?? '正在加载中...',
+                  style: Theme.of(context).textTheme.headline2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  _.playlistDetail == null
+                      ? '正在加载中...'
+                      : 'Created by ${_.playlistDetail?.playlist.creator.nickname}',
+                  style: Theme.of(context).textTheme.subtitle1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  _.playlistDetail == null
+                      ? '正在加载中...'
+                      : '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, DateFormat("yyyy-MM-dd hh:mm"))} · ${_.playlistDetail?.playlist.trackCount} 首歌',
+                  style: Theme.of(context).textTheme.subtitle2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  _.playlistDetail?.playlist.description ?? '还没加载出来哦!',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Row(
+                  children: [
+                    fui.FilledButton(
+                      child: Container(
+                        child: Row(children: [
+                          Icon(
+                            Icons.play_arrow_rounded,
+                            size: 32,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
+                          Text("播放", style: Theme.of(context).textTheme.button)
+                        ]),
+                      ),
+                      onPressed: () => {},
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    fui.IconButton(
+                      onPressed: () => {},
+                      icon: Icon(
+                        Icons.favorite_rounded,
+                        size: 36,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    fui.IconButton(
+                      onPressed: () => {},
+                      icon: Icon(
+                        Icons.more_horiz_rounded,
+                        size: 36,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      );
+    });
+  }
+}
+
+class SongListTile extends StatefulWidget {
   final Song song;
 
   const SongListTile({super.key, required this.song});
+
+  @override
+  State<SongListTile> createState() => _SongListTileState();
+}
+
+class _SongListTileState extends State<SongListTile> {
   @override
   Widget build(BuildContext context) {
-    return fui.ToggleButton(
-      checked: false,
-      onChanged: (value) {
-        AudioService.to.play(song);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Center(
+      child: Container(
+        height: 66,
+        width: 1100,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          splashFactory: NoSplash.splashFactory,
+          onDoubleTap: () => AudioService.to.play(widget.song),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                clipBehavior: Clip.antiAlias,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                child: CachedNetworkImage(
-                    imageUrl: song.al.picUrl,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Icon(Icons.error)),
-              ),
-              SizedBox(
-                width: 18,
-              ),
-              Container(
-                width: 300,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      song.name,
-                      style: Theme.of(context).textTheme.subtitle1,
-                      overflow: TextOverflow.ellipsis,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(4, 0, 18, 0),
+                    width: 60,
+                    height: 60,
+                    clipBehavior: Clip.antiAlias,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    child: CachedNetworkImage(
+                        imageUrl: widget.song.al.picUrl,
+                        fit: BoxFit.cover,
+                        progressIndicatorBuilder: (context, url,
+                                downloadProgress) =>
+                            fui.ProgressBar(value: downloadProgress.progress),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.error)),
+                  ),
+                  Container(
+                    width: 300,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.song.name,
+                          style: Theme.of(context).textTheme.subtitle1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          widget.song.ar
+                              .map((e) => e.name.removeAllWhitespace)
+                              .join('/'),
+                          style: Theme.of(context).textTheme.subtitle2,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
                     ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      song.ar.map((e) => e.name.removeAllWhitespace).join('/'),
+                  )
+                ],
+              ),
+              Container(
+                  width: 300,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.song.al.name,
                       style: Theme.of(context).textTheme.subtitle2,
                       overflow: TextOverflow.ellipsis,
-                    )
-                  ],
+                    ),
+                  )),
+              Container(
+                width: 50,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '${CommonUtils.timestamps2Datetime(widget.song.dt, DateFormat('mm:ss'))}',
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
                 ),
               )
             ],
           ),
-          Container(
-              width: 300,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  song.al.name,
-                  style: Theme.of(context).textTheme.subtitle2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )),
-          Container(
-            width: 50,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${CommonUtils.timestamps2Datetime(song.dt, DateFormat('mm:ss'))}',
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
