@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-19 21:54:00
+ * @LastEditTime: 2023-01-20 03:55:47
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
@@ -28,6 +28,7 @@ class BottomPlayerBar extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
         height: 88,
+        color: Theme.of(context).canvasColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
@@ -113,8 +114,8 @@ class PlayerStateWidget extends StatelessWidget {
                   size: 32,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onPressed: _.audioState.currentIndex <= 0
-                    ? null
+                onPressed: _.audioState.currentIndex == -1
+                    ? () => {}
                     : () => _.play(_.audioState.currentIndex - 1),
               ),
               fui.IconButton(
@@ -133,7 +134,7 @@ class PlayerStateWidget extends StatelessWidget {
                       ),
                 onPressed:
                     _.audioState.currentPlayerState == PlayerState.stopped
-                        ? null
+                        ? () => {}
                         : () {
                             if (_.audioState.currentPlayerState ==
                                 PlayerState.playing) {
@@ -145,16 +146,14 @@ class PlayerStateWidget extends StatelessWidget {
                           },
               ),
               fui.IconButton(
-                icon: Icon(
-                  Icons.skip_next_rounded,
-                  size: 32,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                onPressed: _.audioState.currentIndex+1 <
-                        (_.audioState.currentDetail?.playlist.trackCount ?? -1)
-                    ? ()=>_.play(_.audioState.currentIndex + 1)
-                    : null, 
-              ),
+                  icon: Icon(
+                    Icons.skip_next_rounded,
+                    size: 32,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  onPressed: _.audioState.currentIndex == -1
+                      ? () => {}
+                      : () => _.play(_.audioState.currentIndex + 1)),
             ],
           ),
         );
@@ -198,6 +197,9 @@ class PlayerControllerWidget extends StatelessWidget {
             ),
             fui.IconButton(
               // icon: Icon(CupertinoIcons.pause_fill),
+              style: fui.ButtonStyle(
+                  backgroundColor:
+                      fui.ButtonState.all(Theme.of(context).primaryColor)),
               icon: Icon(
                 CupertinoIcons.repeat_1,
                 size: 20,

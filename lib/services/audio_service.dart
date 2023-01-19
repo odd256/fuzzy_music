@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-18 00:45:29
- * @LastEditTime: 2023-01-19 23:14:41
+ * @LastEditTime: 2023-01-20 03:54:03
  * @FilePath: \fuzzy_music\lib\services\audio_service.dart
  * @Description: 
  */
@@ -62,26 +62,29 @@ class AudioService extends GetxController {
   play(int index) async {
     audioState.currentDetail ??= PlaylistController.to.playlistDetail!;
 
-    // 请求对应的歌曲
-    if (index >= 0 &&
-        index <= audioState.currentDetail!.playlist.trackCount - 1) {
-      PlaylistTrackAll trackAll = await PlaylistTrackAllApi.playlistTrackAll(
-        audioState.currentDetail!.playlist.id,
-        1,
-        index,
-      );
-
-      // 更新歌曲状态
-      audioState.currentSong = trackAll.songs[0];
-      audioState.currentIndex = index;
-
-      // 请求歌曲URL
-      SongUrl su = await SongUrlApi.songUrlApi(audioState.currentSong!.id);
-      await _player.play(UrlSource(su.data[0].url)).then((value) {
-        audioState.currentPlayerState = PlayerState.playing;
-        update();
-      });
+    // 防止超出范围
+    if (index < 0) {
+      index = audioState.currentDetail!.playlist.trackCount - 1;
+    } else if (index > audioState.currentDetail!.playlist.trackCount - 1) {
+      index = 0;
     }
+    // 请求对应的歌曲
+    PlaylistTrackAll trackAll = await PlaylistTrackAllApi.playlistTrackAll(
+      audioState.currentDetail!.playlist.id,
+      1,
+      index,
+    );
+
+    // 更新歌曲状态
+    audioState.currentSong = trackAll.songs[0];
+    audioState.currentIndex = index;
+
+    // 请求歌曲URL
+    SongUrl su = await SongUrlApi.songUrlApi(audioState.currentSong!.id);
+    await _player.play(UrlSource(su.data[0].url)).then((value) {
+      audioState.currentPlayerState = PlayerState.playing;
+      update();
+    });
   }
 
   pause() async {
