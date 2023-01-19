@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-18 21:45:56
+ * @LastEditTime: 2023-01-19 23:54:14
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -24,10 +24,6 @@ class PlaylistPage extends StatelessWidget {
   const PlaylistPage({super.key, required this.playlistId});
 
   _buildSongList(List<Song> songs, context) {
-    List<Widget> sl = [];
-    for (Song s in songs) {
-      sl.add(SongListTile(song: s));
-    }
     return SliverFixedExtentList(
         delegate: SliverChildBuilderDelegate((_, index) {
           if (index == songs.length) {
@@ -49,7 +45,13 @@ class PlaylistPage extends StatelessWidget {
               );
             }
           } else {
-            return SongListTile(song: songs[index]);
+            return GetBuilder<AudioService>(
+                builder: (_) => SongListTile(
+                      playlistIndex: index,
+                      song: songs[index],
+                      selected: songs[index].id ==
+                          (_.audioState.currentSong?.id ?? -1),
+                    ));
           }
         }, childCount: songs.length + 1),
         itemExtent: 66);
@@ -58,6 +60,9 @@ class PlaylistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PlaylistController>(
+      initState: (state) {
+        
+      },
         init: PlaylistController(currentPlaylistId: playlistId),
         builder: (_) {
           return CustomScrollView(
@@ -84,7 +89,8 @@ class PlaylistHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PlaylistController>(builder: (_) {
+    return GetBuilder<PlaylistController>(
+      builder: (_) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -182,9 +188,14 @@ class PlaylistHeader extends StatelessWidget {
 }
 
 class SongListTile extends StatefulWidget {
+  final playlistIndex;
   final Song song;
-
-  const SongListTile({super.key, required this.song});
+  final bool selected;
+  const SongListTile(
+      {super.key,
+      required this.song,
+      required this.selected,
+      required this.playlistIndex});
 
   @override
   State<SongListTile> createState() => _SongListTileState();
@@ -197,10 +208,15 @@ class _SongListTileState extends State<SongListTile> {
       child: Container(
         height: 66,
         width: 1100,
+        decoration: widget.selected
+            ? BoxDecoration(
+                color: Theme.of(context).focusColor,
+                borderRadius: BorderRadius.circular(12))
+            : null,
         child: InkWell(
-          borderRadius: BorderRadius.circular(10),
           splashFactory: NoSplash.splashFactory,
-          onDoubleTap: () => AudioService.to.play(widget.song),
+          onDoubleTap: () => AudioService.to.play(widget.playlistIndex),
+          borderRadius: BorderRadius.circular(12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -208,7 +224,7 @@ class _SongListTileState extends State<SongListTile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(4, 0, 18, 0),
+                    margin: EdgeInsets.fromLTRB(6, 6, 18, 6),
                     width: 60,
                     height: 60,
                     clipBehavior: Clip.antiAlias,

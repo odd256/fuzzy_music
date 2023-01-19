@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-18 19:48:00
+ * @LastEditTime: 2023-01-19 21:54:00
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
@@ -57,10 +57,10 @@ class AlbumStateWidget extends StatelessWidget {
                 child: Container(
                   height: 66,
                   width: 66,
-                  child: _.curSong == null
+                  child: _.audioState.currentSong == null
                       ? const FlutterLogo()
                       : CachedNetworkImage(
-                          imageUrl: _.curSong?.al.picUrl ?? ''),
+                          imageUrl: _.audioState.currentSong?.al.picUrl ?? ''),
                 ),
               ),
             ),
@@ -71,7 +71,7 @@ class AlbumStateWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _.curSong?.name ?? '你还没播放歌曲',
+                    _.audioState.currentSong?.name ?? '你还没播放歌曲',
                     style: Theme.of(context).textTheme.subtitle1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -79,7 +79,7 @@ class AlbumStateWidget extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    _.curSong?.ar
+                    _.audioState.currentSong?.ar
                             .map((e) => e.name.removeAllWhitespace)
                             .join('/') ??
                         '未知艺术家',
@@ -113,10 +113,12 @@ class PlayerStateWidget extends StatelessWidget {
                   size: 32,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onPressed: null,
+                onPressed: _.audioState.currentIndex <= 0
+                    ? null
+                    : () => _.play(_.audioState.currentIndex - 1),
               ),
               fui.IconButton(
-                icon: _.curPlayState == PlayState.playing
+                icon: _.audioState.currentPlayerState == PlayerState.playing
                     ? Icon(
                         // CupertinoIcons.play_arrow_solid,
                         Icons.pause_rounded,
@@ -129,15 +131,18 @@ class PlayerStateWidget extends StatelessWidget {
                         size: 50,
                         color: Theme.of(context).iconTheme.color,
                       ),
-                onPressed: _.curPlayState == PlayState.stopped
-                    ? null
-                    : () {
-                        if (_.curPlayState == PlayState.playing) {
-                          _.pause();
-                        } else if (_.curPlayState == PlayState.paused) {
-                          _.resume();
-                        }
-                      },
+                onPressed:
+                    _.audioState.currentPlayerState == PlayerState.stopped
+                        ? null
+                        : () {
+                            if (_.audioState.currentPlayerState ==
+                                PlayerState.playing) {
+                              _.pause();
+                            } else if (_.audioState.currentPlayerState ==
+                                PlayerState.paused) {
+                              _.resume();
+                            }
+                          },
               ),
               fui.IconButton(
                 icon: Icon(
@@ -145,7 +150,10 @@ class PlayerStateWidget extends StatelessWidget {
                   size: 32,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onPressed: null,
+                onPressed: _.audioState.currentIndex+1 <
+                        (_.audioState.currentDetail?.playlist.trackCount ?? -1)
+                    ? ()=>_.play(_.audioState.currentIndex + 1)
+                    : null, 
               ),
             ],
           ),
@@ -162,9 +170,11 @@ class PlayerControllerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AudioService>(builder: (_) {
       buildVolumeBtn() {
-        if (_.curVolume > 0.75 && _.curVolume <= 1.0) {
+        if (_.audioState.currentVolume > 0.75 &&
+            _.audioState.currentVolume <= 1.0) {
           return CupertinoIcons.volume_up;
-        } else if (_.curVolume < 0.75 && _.curVolume > 0) {
+        } else if (_.audioState.currentVolume < 0.75 &&
+            _.audioState.currentVolume > 0) {
           return CupertinoIcons.volume_down;
         } else {
           return CupertinoIcons.volume_off;
@@ -218,7 +228,7 @@ class PlayerControllerWidget extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                if (_.curVolume != 0) {
+                if (_.audioState.currentVolume != 0) {
                   _.volume(0);
                 } else {
                   _.volume(0.5);
@@ -230,7 +240,7 @@ class PlayerControllerWidget extends StatelessWidget {
             ),
             fui.Slider(
               max: 1,
-              value: _.curVolume,
+              value: _.audioState.currentVolume,
               onChanged: (value) => _.volume(value),
             ),
             SizedBox(

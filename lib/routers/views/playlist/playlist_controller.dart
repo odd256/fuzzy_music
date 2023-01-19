@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:42:13
- * @LastEditTime: 2023-01-18 21:47:09
+ * @LastEditTime: 2023-01-20 02:59:23
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_controller.dart
  * @Description: 
  */
@@ -29,7 +29,7 @@ class PlaylistController extends GetxController {
   set playlistDetail(p) => _playlistDetail = p;
 
   PlaylistTrackAll _playlistTracks =
-      const PlaylistTrackAll(songs: [], privileges: [], code: 0);
+      PlaylistTrackAll(songs: <Song>[], privileges: [], code: 0);
 
   PlaylistTrackAll get playlistTracks => _playlistTracks;
   set playlistTracks(p) => _playlistTracks = p;
@@ -45,8 +45,7 @@ class PlaylistController extends GetxController {
     final PlaylistDetail pd =
         await PlaylistDetailaApi.playlistDetail(currentPlaylistId);
     playlistDetail = pd;
-    final p =
-        await PlaylistTrackAllApi.playlistTrackAll(pd.playlist.id);
+    final p = await PlaylistTrackAllApi.playlistTrackAll(currentPlaylistId);
     _playlistTracks = p;
     update();
   }
@@ -54,7 +53,7 @@ class PlaylistController extends GetxController {
   // 歌曲分页数据
   retrieveTracksData({int limit = 20, required int offset}) async {
     final PlaylistTrackAll p = await PlaylistTrackAllApi.playlistTrackAll(
-        playlistDetail!.playlist.id, limit, offset);
+        currentPlaylistId, limit, offset);
     playlistTracks.songs.addAll(p.songs);
     update();
   }
