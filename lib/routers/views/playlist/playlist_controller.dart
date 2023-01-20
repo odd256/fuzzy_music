@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:42:13
- * @LastEditTime: 2023-01-20 02:59:23
+ * @LastEditTime: 2023-01-20 20:38:23
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_controller.dart
  * @Description: 
  */
@@ -46,7 +46,7 @@ class PlaylistController extends GetxController {
         await PlaylistDetailaApi.playlistDetail(currentPlaylistId);
     playlistDetail = pd;
     final p = await PlaylistTrackAllApi.playlistTrackAll(currentPlaylistId);
-    _playlistTracks = p;
+    playlistTracks = p;
     update();
   }
 

@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-18 00:45:29
- * @LastEditTime: 2023-01-20 03:54:03
+ * @LastEditTime: 2023-01-20 20:36:27
  * @FilePath: \fuzzy_music\lib\services\audio_service.dart
  * @Description: 
  */
@@ -60,7 +60,7 @@ class AudioService extends GetxController {
   }
 
   play(int index) async {
-    audioState.currentDetail ??= PlaylistController.to.playlistDetail!;
+    audioState.currentDetail = PlaylistController.to.playlistDetail!;
 
     // 防止超出范围
     if (index < 0) {
