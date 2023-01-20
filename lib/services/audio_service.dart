@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-18 00:45:29
- * @LastEditTime: 2023-01-20 20:36:27
+ * @LastEditTime: 2023-01-20 21:17:17
  * @FilePath: \fuzzy_music\lib\services\audio_service.dart
  * @Description: 
  */
@@ -39,8 +39,6 @@ class AudioService extends GetxController {
     _player.onPlayerComplete.listen((event) {
       switch (audioState.currentMode) {
         case PlayerMode.shuffle:
-          // TODO: Handle this case.
-
           break;
         case PlayerMode.sequential:
           int curIdx = audioState.currentIndex;
@@ -57,6 +55,66 @@ class AudioService extends GetxController {
       }
     });
     return this;
+  }
+
+  playPrevious() async {
+    int index = audioState.currentIndex - 1;
+    // 防止超出范围
+    if (index < 0) {
+      index = audioState.currentDetail!.playlist.trackCount - 1;
+    } else if (index > audioState.currentDetail!.playlist.trackCount - 1) {
+      index = 0;
+    }
+
+    // 请求对应的歌曲
+    PlaylistTrackAll trackAll = await PlaylistTrackAllApi.playlistTrackAll(
+      audioState.currentDetail!.playlist.id,
+      1,
+      audioState.currentMode == PlayerMode.shuffle
+          ? audioState.shuffledList![index]
+          : index,
+    );
+
+    // 更新歌曲状态
+    audioState.currentSong = trackAll.songs[0];
+    audioState.currentIndex = index;
+
+    // 请求歌曲URL
+    SongUrl su = await SongUrlApi.songUrlApi(audioState.currentSong!.id);
+    await _player.play(UrlSource(su.data[0].url)).then((value) {
+      audioState.currentPlayerState = PlayerState.playing;
+      update();
+    });
+  }
+
+  playNext() async {
+    int index = audioState.currentIndex + 1;
+    // 防止超出范围
+    if (index < 0) {
+      index = audioState.currentDetail!.playlist.trackCount - 1;
+    } else if (index > audioState.currentDetail!.playlist.trackCount - 1) {
+      index = 0;
+    }
+
+    // 请求对应的歌曲
+    PlaylistTrackAll trackAll = await PlaylistTrackAllApi.playlistTrackAll(
+      audioState.currentDetail!.playlist.id,
+      1,
+      audioState.currentMode == PlayerMode.shuffle
+          ? audioState.shuffledList![index]
+          : index,
+    );
+
+    // 更新歌曲状态
+    audioState.currentSong = trackAll.songs[0];
+    audioState.currentIndex = index;
+
+    // 请求歌曲URL
+    SongUrl su = await SongUrlApi.songUrlApi(audioState.currentSong!.id);
+    await _player.play(UrlSource(su.data[0].url)).then((value) {
+      audioState.currentPlayerState = PlayerState.playing;
+      update();
+    });
   }
 
   play(int index) async {
@@ -123,8 +181,16 @@ class AudioService extends GetxController {
   }
 
   changeMode(PlayerMode mode) {
-    audioState.currentMode = mode;
-    // TODO: change mode
+    if (audioState.currentMode != mode) {
+      audioState.currentMode = mode;
+    } else {
+      audioState.currentMode = PlayerMode.sequential;
+    }
+    if (mode == PlayerMode.shuffle) {
+      audioState.shuffledList = List.generate(
+          audioState.currentDetail!.playlist.trackCount, (v) => v);
+      audioState.shuffledList?.shuffle();
+    }
     update();
   }
 }
@@ -142,6 +208,8 @@ class AudioState {
   double currentVolume;
   // 当前歌单的详细信息
   PlaylistDetail? currentDetail;
+  // shuffle的列表
+  List<int>? shuffledList;
 
   AudioState(
       {required this.currentIndex,

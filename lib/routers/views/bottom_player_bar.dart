@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-20 03:55:47
+ * @LastEditTime: 2023-01-20 21:19:03
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
@@ -44,7 +44,6 @@ class BottomPlayerBar extends StatelessWidget {
 
 class AlbumStateWidget extends StatelessWidget {
   const AlbumStateWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AudioService>(builder: (_) {
@@ -116,7 +115,7 @@ class PlayerStateWidget extends StatelessWidget {
                 ),
                 onPressed: _.audioState.currentIndex == -1
                     ? () => {}
-                    : () => _.play(_.audioState.currentIndex - 1),
+                    : () => _.playPrevious(),
               ),
               fui.IconButton(
                 icon: _.audioState.currentPlayerState == PlayerState.playing
@@ -153,7 +152,7 @@ class PlayerStateWidget extends StatelessWidget {
                   ),
                   onPressed: _.audioState.currentIndex == -1
                       ? () => {}
-                      : () => _.play(_.audioState.currentIndex + 1)),
+                      : () => _.playNext()),
             ],
           ),
         );
@@ -197,27 +196,34 @@ class PlayerControllerWidget extends StatelessWidget {
             ),
             fui.IconButton(
               // icon: Icon(CupertinoIcons.pause_fill),
-              style: fui.ButtonStyle(
-                  backgroundColor:
-                      fui.ButtonState.all(Theme.of(context).primaryColor)),
+              style: _.audioState.currentMode == PlayerMode.loop
+                  ? fui.ButtonStyle(
+                      backgroundColor:
+                          fui.ButtonState.all(Theme.of(context).primaryColor))
+                  : null,
               icon: Icon(
                 CupertinoIcons.repeat_1,
                 size: 20,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: () => {},
+              onPressed: () => {_.changeMode(PlayerMode.loop)},
             ),
             SizedBox(
               width: 10,
             ),
             fui.IconButton(
               // icon: Icon(CupertinoIcons.pause_fill),
+              style: _.audioState.currentMode == PlayerMode.shuffle
+                  ? fui.ButtonStyle(
+                      backgroundColor:
+                          fui.ButtonState.all(Theme.of(context).primaryColor))
+                  : null,
               icon: Icon(
                 CupertinoIcons.shuffle,
                 size: 20,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: () => {},
+              onPressed: () => {_.changeMode(PlayerMode.shuffle)},
             ),
             SizedBox(
               width: 10,
