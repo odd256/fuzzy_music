@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-20 21:19:03
+ * @LastEditTime: 2023-01-21 02:25:51
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
@@ -24,18 +24,21 @@ class BottomPlayerBar extends StatelessWidget {
     final mediaQuerySize = MediaQuery.of(context).size;
 
     return BottomAppBar(
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
-        height: 88,
-        color: Theme.of(context).canvasColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            AlbumStateWidget(),
-            PlayerStateWidget(),
-            PlayerControllerWidget()
-          ],
+      child: GestureDetector(
+        onTap: () => Get.toNamed('/lyrics'),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: (mediaQuerySize.width - 240 * 5) / 2 + 20),
+          height: 88,
+          color: Theme.of(context).canvasColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              AlbumStateWidget(),
+              PlayerStateWidget(),
+              PlayerControllerWidget()
+            ],
+          ),
         ),
       ),
     );
@@ -261,7 +264,7 @@ class PlayerControllerWidget extends StatelessWidget {
                 size: 20,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: () => {},
+              onPressed: () => {Get.toNamed('/lyrics')},
             ),
           ],
         ),

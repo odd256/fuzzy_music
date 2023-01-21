@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-19 23:54:14
+ * @LastEditTime: 2023-01-21 02:42:22
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -131,7 +131,7 @@ class PlaylistHeader extends StatelessWidget {
                 Text(
                   _.playlistDetail == null
                       ? '正在加载中...'
-                      : '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, DateFormat("yyyy-MM-dd hh:mm"))} · ${_.playlistDetail?.playlist.trackCount} 首歌',
+                      : '最后更新于 ${CommonUtils.timestamps2Datetime(_.playlistDetail?.playlist.updateTime ?? 0, "yyyy-MM-dd hh:mm")} · ${_.playlistDetail?.playlist.trackCount} 首歌',
                   style: Theme.of(context).textTheme.subtitle2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -280,7 +280,7 @@ class _SongListTileState extends State<SongListTile> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '${CommonUtils.timestamps2Datetime(widget.song.dt, DateFormat('mm:ss'))}',
+                    '${CommonUtils.timestamps2Datetime(widget.song.dt, 'mm:ss')}',
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ),
