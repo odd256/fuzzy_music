@@ -1,15 +1,17 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-18 00:45:29
- * @LastEditTime: 2023-01-20 21:17:17
+ * @LastEditTime: 2023-01-21 23:46:32
  * @FilePath: \fuzzy_music\lib\services\audio_service.dart
  * @Description: 
  */
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:fuzzy_music/api/lyrics.dart';
 import 'package:fuzzy_music/api/playlist_track_all.dart';
 import 'package:fuzzy_music/api/song_url.dart';
 import 'package:fuzzy_music/models/index.dart';
+import 'package:fuzzy_music/models/lyrics.dart';
 import 'package:fuzzy_music/models/playlist_detail.dart';
 import 'package:fuzzy_music/models/song_url.dart';
 import 'package:fuzzy_music/routers/views/playlist/playlist_controller.dart';
@@ -39,15 +41,10 @@ class AudioService extends GetxController {
     _player.onPlayerComplete.listen((event) {
       switch (audioState.currentMode) {
         case PlayerMode.shuffle:
+          playNext();
           break;
         case PlayerMode.sequential:
-          int curIdx = audioState.currentIndex;
-          int totalCount = audioState.currentDetail!.playlist.trackCount;
-          if (curIdx <= 0) {
-            play(totalCount - 1);
-          } else {
-            play(curIdx + 1 <= totalCount - 1 ? curIdx + 1 : 0);
-          }
+          playNext();
           break;
         case PlayerMode.loop:
           play(audioState.currentIndex);
@@ -180,6 +177,7 @@ class AudioService extends GetxController {
     });
   }
 
+  // 播放模式切换
   changeMode(PlayerMode mode) {
     if (audioState.currentMode != mode) {
       audioState.currentMode = mode;
@@ -192,6 +190,11 @@ class AudioService extends GetxController {
       audioState.shuffledList?.shuffle();
     }
     update();
+  }
+
+  // 获取歌词
+  getLyrics() async {
+    Lyrics lyrics =  await LyricsApi.lyrics(audioState.currentSong?.id ?? 0);
   }
 }
 
