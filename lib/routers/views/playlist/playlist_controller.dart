@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:42:13
- * @LastEditTime: 2023-01-20 20:38:23
+ * @LastEditTime: 2023-01-24 04:59:35
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_controller.dart
  * @Description: 
  */
@@ -51,7 +51,7 @@ class PlaylistController extends GetxController {
   }
 
   // 歌曲分页数据
-  retrieveTracksData({int limit = 20, required int offset}) async {
+  retrieveTracksData({int limit = 10, required int offset}) async {
     final PlaylistTrackAll p = await PlaylistTrackAllApi.playlistTrackAll(
         currentPlaylistId, limit, offset);
     playlistTracks.songs.addAll(p.songs);
