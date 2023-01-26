@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 18:21:45
- * @LastEditTime: 2023-01-21 21:21:34
+ * @LastEditTime: 2023-01-26 07:09:46
  * @FilePath: \fuzzy_music\lib\api\lyrics.dart
  * @Description: 
  */
@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 class LyricsApi {
   static final _dio = Get.find<Dio>();
   static lyrics(int id) async {
-    var res = await _dio.get('/lyrics?id=$id');
+    var res = await _dio.get('/lyric?id=$id');
     return Lyrics.fromJson(json.decode(res.data));
   }
 }

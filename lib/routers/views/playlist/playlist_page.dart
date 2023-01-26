@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-15 22:39:44
- * @LastEditTime: 2023-01-24 04:01:53
+ * @LastEditTime: 2023-01-26 06:18:35
  * @FilePath: \fuzzy_music\lib\routers\views\playlist\playlist_page.dart
  * @Description: 
  */
@@ -9,6 +9,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fui;
@@ -214,6 +215,7 @@ class _SongListTileState extends State<SongListTile> {
                 borderRadius: BorderRadius.circular(12))
             : null,
         child: InkWell(
+          mouseCursor: SystemMouseCursors.basic,
           splashFactory: NoSplash.splashFactory,
           onDoubleTap: () => AudioService.to.play(widget.playlistIndex),
           borderRadius: BorderRadius.circular(12),

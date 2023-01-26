@@ -1,7 +1,7 @@
 /*
  * @Creator: Odd
  * @Date: 2023-01-07 00:10:43
- * @LastEditTime: 2023-01-21 02:25:51
+ * @LastEditTime: 2023-01-26 06:40:26
  * @FilePath: \fuzzy_music\lib\routers\views\bottom_player_bar.dart
  * @Description: 
  */
